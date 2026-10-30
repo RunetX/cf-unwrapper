@@ -26,12 +26,17 @@ cf-unwrapper import xml rebuilt.cf
 cf-unwrapper new-epf SyntheticProcessor fresh.epf
 cf-unwrapper export fresh.epf external
 cf-unwrapper import external/SyntheticProcessor.xml rebuilt.epf
+cf-unwrapper unpack rebuilt.epf external-unpacked
 cf-unwrapper xml-down xml xml-old --format 2.17
 cf-unwrapper xml-diff xml reference 3
-cf-unwrapper import-check xml unpacked - 3
+cf-unwrapper import-check external/SyntheticProcessor.xml external-unpacked - 3
 ```
 
-`export` and `export-forms` accept an optional UTF-8 selection file (one object path per line). `import-check` accepts a selection file or `-` for all objects. Native XML is 2.21; `export --format 2.21` explicitly requests it. Downgrades support embedded 2.20 and chained 2.17 tables. Files under `formats/<version>.txt` beside the executable override the embedded tables; the packaged tables live in `crates/cf-unwrapper/formats/`. Invalid arguments, unreadable files, unsupported formats, and import refusals return nonzero with stderr diagnostics. `import` refuses to replace or create its result when any input file is refused.
+`import-check <xml> <records-dir> [selection|-] [N]` compares imported XML with the directory containing the unpacked metadata records themselves. A flat `.epf` normally uses the unpack root, as in the external-processing example above. A multipart `.cf` commonly uses `unpacked/part1`, but the part number is not universal: inspect the root and per-part `.cfkit` manifests and `cf-unwrapper ls input.cf` to identify the metadata part. Pass that part directory, not the multipart unpack root; for a confirmed `part1` layout, use `cf-unwrapper import-check xml unpacked/part1 - 3`.
+
+The `differ`, `extra` and `refused` counts are comparison results; inspect them even when the command exits successfully. Import can normalize records, so comparing original container records against imported XML can report differences (including a platform generator version change). This alone does not prove XML roundtrip loss. To check the normalized representation, import the XML, export the rebuilt container, and compare those XML trees with `xml-diff`; unpack the rebuilt container for a matching `import-check` baseline.
+
+`export` and `export-forms` accept an optional UTF-8 selection file (one object path per line). `import-check` accepts a selection file or `-` for all objects. Native XML is 2.21; `export --format 2.21` explicitly requests it. Downgrades support embedded 2.20 and chained 2.17 tables. Files under `formats/<version>.txt` beside the executable override the embedded tables; the packaged tables live in `crates/cf-unwrapper/formats/`. Invalid arguments, unreadable files, unsupported formats, and refusals from `import` return nonzero with stderr diagnostics. `import` refuses to replace or create its result when any input file is refused.
 
 ```rust
 use cf_unwrapper::{meta::Config, xml};
