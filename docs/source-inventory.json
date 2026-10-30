@@ -1,0 +1,773 @@
+{
+  "source_revision": "4e5f371104beb40c05349dd8fa9277ce45aa61cd",
+  "files": [
+    {
+      "path": "crates/cf-unwrapper/src/brace.rs",
+      "sha256": "194f75fa9c8f3168b842d266c13df651978b069ee91283bca6e33d9d4cc84ea7",
+      "source_path": "src/brace.rs",
+      "source_sha256": "194f75fa9c8f3168b842d266c13df651978b069ee91283bca6e33d9d4cc84ea7"
+    },
+    {
+      "path": "crates/cf-unwrapper/src/container.rs",
+      "sha256": "b449370f72d370e38f339a56be626d4bec2be594a656f54def9b6ff8c8bc0cd0",
+      "source_path": "src/container.rs",
+      "source_sha256": "b449370f72d370e38f339a56be626d4bec2be594a656f54def9b6ff8c8bc0cd0"
+    },
+    {
+      "path": "crates/cf-unwrapper/src/lib.rs",
+      "sha256": "75832fff62f9d4da64d8103a43d8384073ae6c9f13f6364474e2c195000503cc",
+      "source_path": "src/lib.rs",
+      "source_sha256": "54eab791fab3a2ae16ec19525ea6823d36cca2515f19fb71046c79a22087cfc7"
+    },
+    {
+      "path": "crates/cf-unwrapper/src/meta.rs",
+      "sha256": "7e39987d4d83ed0b24c30ac27efc9121597f868fafda49347dc970c8ce408510",
+      "source_path": "src/meta.rs",
+      "source_sha256": "7e39987d4d83ed0b24c30ac27efc9121597f868fafda49347dc970c8ce408510"
+    },
+    {
+      "path": "crates/cf-unwrapper/src/par.rs",
+      "sha256": "a3fdcd1d4bd03a87619215186e7f83bf729aae98780dc96256abfbbd5c288995",
+      "source_path": "src/par.rs",
+      "source_sha256": "a3fdcd1d4bd03a87619215186e7f83bf729aae98780dc96256abfbbd5c288995"
+    },
+    {
+      "path": "crates/cf-unwrapper/src/query/dcs.rs",
+      "sha256": "e67f2fa973e9a43b9b6717055493e42cf5f3714a06583fb73a1030d31c0d9518",
+      "source_path": "src/query/dcs.rs",
+      "source_sha256": "e67f2fa973e9a43b9b6717055493e42cf5f3714a06583fb73a1030d31c0d9518"
+    },
+    {
+      "path": "crates/cf-unwrapper/src/query/lex.rs",
+      "sha256": "d98afbc03dbfeabcf28ed96617e5a1c598c6e5ef721993d328b5ba612cfd02dd",
+      "source_path": "src/query/lex.rs",
+      "source_sha256": "d98afbc03dbfeabcf28ed96617e5a1c598c6e5ef721993d328b5ba612cfd02dd"
+    },
+    {
+      "path": "crates/cf-unwrapper/src/query/mod.rs",
+      "sha256": "abe589011f3dd2086f1e9cb3bbbde1b8d8690bf48a2cdf04725ddb16ecdd7e0c",
+      "source_path": "src/query/mod.rs",
+      "source_sha256": "abe589011f3dd2086f1e9cb3bbbde1b8d8690bf48a2cdf04725ddb16ecdd7e0c"
+    },
+    {
+      "path": "crates/cf-unwrapper/src/query/names.rs",
+      "sha256": "e59aca77e605536c4c459e511ed03091d876bec8af84460e2d0399e44128abbb",
+      "source_path": "src/query/names.rs",
+      "source_sha256": "abbc668528c41fba2447d7ed37b524d23adc6699605ae1d14730a73d792dc20b"
+    },
+    {
+      "path": "crates/cf-unwrapper/src/query/parse.rs",
+      "sha256": "c5592c1ddf0dc45e7e9a7b3f3bb86b3d09763ad999cedc79777559872cb0edde",
+      "source_path": "src/query/parse.rs",
+      "source_sha256": "bc7bc949f83053da6e24fb7a7353c8eaa1c3a5e8e442f34cda51c1a45bc825ff"
+    },
+    {
+      "path": "crates/cf-unwrapper/src/query/resolve.rs",
+      "sha256": "6bf3b534bf1a26bbe9db85001476db9c5b56defc1efb54af38f520800eba76a2",
+      "source_path": "src/query/resolve.rs",
+      "source_sha256": "6bf3b534bf1a26bbe9db85001476db9c5b56defc1efb54af38f520800eba76a2"
+    },
+    {
+      "path": "crates/cf-unwrapper/src/query/roles.rs",
+      "sha256": "e7162ea9236aadf37115e9c89cdf4fdd49315b92a08008d4d3e1b99f2f8c8bdb",
+      "source_path": "src/query/roles.rs",
+      "source_sha256": "e7162ea9236aadf37115e9c89cdf4fdd49315b92a08008d4d3e1b99f2f8c8bdb"
+    },
+    {
+      "path": "crates/cf-unwrapper/src/query/settings.rs",
+      "sha256": "249b3b9462ef21ddfbfd27f072218fb429a615f6229c8c35b8a13ab84cf3168f",
+      "source_path": "src/query/settings.rs",
+      "source_sha256": "249b3b9462ef21ddfbfd27f072218fb429a615f6229c8c35b8a13ab84cf3168f"
+    },
+    {
+      "path": "crates/cf-unwrapper/src/unpack.rs",
+      "sha256": "832b1c129e8512144c3053c9a81c9e41a08629e01a0e8ddcd86e0b76fa6a12a6",
+      "source_path": "src/unpack.rs",
+      "source_sha256": "182cc6fbba378c826f64d0b23662e05d52a4ee6bfa9c283b04bbbae935fba581"
+    },
+    {
+      "path": "crates/cf-unwrapper/src/xml/attr.rs",
+      "sha256": "1ee154a653f3b944179306b34564493f3f7de5a5d73492adb7f7b754e513e542",
+      "source_path": "src/xml/attr.rs",
+      "source_sha256": "1ee154a653f3b944179306b34564493f3f7de5a5d73492adb7f7b754e513e542"
+    },
+    {
+      "path": "crates/cf-unwrapper/src/xml/captions.rs",
+      "sha256": "1fb8f740fa4110645c42e0117de966f4bba9c3142bcd77b1cf09e17b0539d24c",
+      "source_path": "src/xml/captions.rs",
+      "source_sha256": "057736af50e5ead51800120f49ae813a78f64e3059ebb9895fa89a85354510ec"
+    },
+    {
+      "path": "crates/cf-unwrapper/src/xml/chart.rs",
+      "sha256": "3496c5e2e68d2690dc51a354033b1062b26e9f9306428008488b9e7d67b3a962",
+      "source_path": "src/xml/chart.rs",
+      "source_sha256": "3496c5e2e68d2690dc51a354033b1062b26e9f9306428008488b9e7d67b3a962"
+    },
+    {
+      "path": "crates/cf-unwrapper/src/xml/classes.rs",
+      "sha256": "125ca753ba73bcb5d4e877b84a438afd3d40e7b23868d3c74a5315b4de029c73",
+      "source_path": "src/xml/classes.rs",
+      "source_sha256": "125ca753ba73bcb5d4e877b84a438afd3d40e7b23868d3c74a5315b4de029c73"
+    },
+    {
+      "path": "crates/cf-unwrapper/src/xml/classes_nested.rs",
+      "sha256": "431f1b491a15bbdfc3902cac9afb0a1d0febfe9d18d90c04f1fb76638d98767e",
+      "source_path": "src/xml/classes_nested.rs",
+      "source_sha256": "431f1b491a15bbdfc3902cac9afb0a1d0febfe9d18d90c04f1fb76638d98767e"
+    },
+    {
+      "path": "crates/cf-unwrapper/src/xml/classes_refs.rs",
+      "sha256": "9a7d23a14721a028a87ee599504ea68ab950e7c4952b2bfd994c101a629e7e85",
+      "source_path": "src/xml/classes_refs.rs",
+      "source_sha256": "9a7d23a14721a028a87ee599504ea68ab950e7c4952b2bfd994c101a629e7e85"
+    },
+    {
+      "path": "crates/cf-unwrapper/src/xml/classes_regs.rs",
+      "sha256": "527bedc4c1581eacb36c42eae92b9a6403aa1484416ea126953ccd8fc1805fb5",
+      "source_path": "src/xml/classes_regs.rs",
+      "source_sha256": "527bedc4c1581eacb36c42eae92b9a6403aa1484416ea126953ccd8fc1805fb5"
+    },
+    {
+      "path": "crates/cf-unwrapper/src/xml/classes_tools.rs",
+      "sha256": "b8dcb13249cf60cf81dc6df05280950ec7845210ea5785182c197f024cf27394",
+      "source_path": "src/xml/classes_tools.rs",
+      "source_sha256": "b8dcb13249cf60cf81dc6df05280950ec7845210ea5785182c197f024cf27394"
+    },
+    {
+      "path": "crates/cf-unwrapper/src/xml/commands_table.rs",
+      "sha256": "bc2d939495de0652e75786c5da11f90aee122bb4160c30e29ed8fe9c8d4de096",
+      "source_path": "src/xml/commands_table.rs",
+      "source_sha256": "bc2d939495de0652e75786c5da11f90aee122bb4160c30e29ed8fe9c8d4de096"
+    },
+    {
+      "path": "crates/cf-unwrapper/src/xml/common.rs",
+      "sha256": "f3fa5c47c77c904ccf4b019d83c5ff953ff03ac09410b95511d79c1a75316f0c",
+      "source_path": "src/xml/common.rs",
+      "source_sha256": "72b2b888d13b35986994e9b15d45784fbe35ffc42a9453ed4bf6dd91fb3f6056"
+    },
+    {
+      "path": "crates/cf-unwrapper/src/xml/dcs.rs",
+      "sha256": "ebd464fd1183766f28506f7d7793e29cea38c13395e3c4c1da795ac9b09ef8fb",
+      "source_path": "src/xml/dcs.rs",
+      "source_sha256": "6870963dfc7d2e853af1bc4c271e9eb4a640bdb79b8fbbf5c53071406bb26a24"
+    },
+    {
+      "path": "crates/cf-unwrapper/src/xml/diff.rs",
+      "sha256": "32ceb00f82bf490b0ac3c1c9babb7afc8750ba3c50ebf0781f175872016042ad",
+      "source_path": "src/xml/diff.rs",
+      "source_sha256": "32ceb00f82bf490b0ac3c1c9babb7afc8750ba3c50ebf0781f175872016042ad"
+    },
+    {
+      "path": "crates/cf-unwrapper/src/xml/down.rs",
+      "sha256": "a54b0fa7b5ede7a47851d6d4d786f85c63cd1494b5829c0a2825398f1b0a88d5",
+      "source_path": "src/xml/down.rs",
+      "source_sha256": "4c6077deff9f8b920e4fd863527a9c30fd1e03e261b776482820f5b362f86fd5"
+    },
+    {
+      "path": "crates/cf-unwrapper/src/xml/edit.rs",
+      "sha256": "d0eedf561316a06552193006b269971c97807ddb46552a0efe3008f0ed7f5e54",
+      "source_path": "src/xml/edit.rs",
+      "source_sha256": "75ecf4bd96d7ba07a98065b4329497bb040f49e810777d0352217801c6a027f4"
+    },
+    {
+      "path": "crates/cf-unwrapper/src/xml/events_table.rs",
+      "sha256": "a2f37e6de65e94220c47a1dfbca4b7728a5f0f6c948f1f204157ffc83e81c4b5",
+      "source_path": "src/xml/events_table.rs",
+      "source_sha256": "a2f37e6de65e94220c47a1dfbca4b7728a5f0f6c948f1f204157ffc83e81c4b5"
+    },
+    {
+      "path": "crates/cf-unwrapper/src/xml/ext.rs",
+      "sha256": "8337620b22da49ac5417298db8d6835c448e9810dcf8da8cf82e66e2ef33bd4e",
+      "source_path": "src/xml/ext.rs",
+      "source_sha256": "8337620b22da49ac5417298db8d6835c448e9810dcf8da8cf82e66e2ef33bd4e"
+    },
+    {
+      "path": "crates/cf-unwrapper/src/xml/flowchart.rs",
+      "sha256": "e83653e76f20c37291972aefc6b9ccee3d071b53c69c2e4ca8c66e193317d575",
+      "source_path": "src/xml/flowchart.rs",
+      "source_sha256": "0df0b95419f91f699b6f2c334f02b7e3527e446ee454e1b00670b438f642fb5c"
+    },
+    {
+      "path": "crates/cf-unwrapper/src/xml/form.rs",
+      "sha256": "b94683e5396992210f016d7eb621d5342803cb09f0391f8d768a4b6d9bc406e1",
+      "source_path": "src/xml/form.rs",
+      "source_sha256": "2ee16961646114d2705d252e9f7539faae4fe97ce374c20d7aeda1a345fb28a3"
+    },
+    {
+      "path": "crates/cf-unwrapper/src/xml/form_dcs.rs",
+      "sha256": "b725a0aa78a6f99da5a08f145e4b39abc55786ff009f1d4e9b10221a0d16a872",
+      "source_path": "src/xml/form_dcs.rs",
+      "source_sha256": "680eac34c7644f57c9c990705bea9738b2ac05dfce1004ce1ff623418242e01c"
+    },
+    {
+      "path": "crates/cf-unwrapper/src/xml/form_props.rs",
+      "sha256": "523111375486d2da0c30472932df7b212d87f17f7c8c4eff080fd05fa5ffd16b",
+      "source_path": "src/xml/form_props.rs",
+      "source_sha256": "49d4b42be579300f324eb1e4e2c6d8da8cc6707f8eb24c32f93ca09b3aae5a0c"
+    },
+    {
+      "path": "crates/cf-unwrapper/src/xml/form_settings.rs",
+      "sha256": "cd18dc467d287dc5dec53f92bae883a5568586e1128969411a792890ba04e2f3",
+      "source_path": "src/xml/form_settings.rs",
+      "source_sha256": "94177bdaaca0a6305742353bc3be8aafce0d9591803d4a562fae72a2dd0742e5"
+    },
+    {
+      "path": "crates/cf-unwrapper/src/xml/form_v28.rs",
+      "sha256": "559a31b7752a6d714d02c86a606e68ccbe6b39dc3bd66528f8b8e92f06d73bfb",
+      "source_path": "src/xml/form_v28.rs",
+      "source_sha256": "559a31b7752a6d714d02c86a606e68ccbe6b39dc3bd66528f8b8e92f06d73bfb"
+    },
+    {
+      "path": "crates/cf-unwrapper/src/xml/form_v59.rs",
+      "sha256": "57254ee972815b35971abfcce17859524ff86def5971e7da4b564669f1b63399",
+      "source_path": "src/xml/form_v59.rs",
+      "source_sha256": "67c924a8eeb2647b307c2ad40ade6a72197dde1496f14553364053f196594277"
+    },
+    {
+      "path": "crates/cf-unwrapper/src/xml/formedit.rs",
+      "sha256": "60ed85a78611cc69a6df7940fad0a7b1a0658539a55baa72b4dbf5fa5a5047a0",
+      "source_path": "src/xml/formedit.rs",
+      "source_sha256": "f3438dc44e9e3a38acbbe7708d0515ebbfc6144e5af072c0a8072c428f27ad70"
+    },
+    {
+      "path": "crates/cf-unwrapper/src/xml/graph.rs",
+      "sha256": "602feed23ff6e97757d8b56c1704d7d9bfc74afad8a904836f1e012da6f3002c",
+      "source_path": "src/xml/graph.rs",
+      "source_sha256": "4f2d782e8ff529f51148bc3818a51d896ff13dda2e139488c2f080d028be4f24"
+    },
+    {
+      "path": "crates/cf-unwrapper/src/xml/imp/attr.rs",
+      "sha256": "05eadc4ca710ede79caa21d7f332b1e8705990c5bfadae6d131af55a5894b9e6",
+      "source_path": "src/xml/imp/attr.rs",
+      "source_sha256": "62f8ed05c635e57316773ed0721e7ce063f9df73d3cad857af83247a676c98ac"
+    },
+    {
+      "path": "crates/cf-unwrapper/src/xml/imp/chart.rs",
+      "sha256": "35e728ceafd42ae0f3eadecf34eaf335bb642b9c7417f5f29d1c7486d27f7cb7",
+      "source_path": "src/xml/imp/chart.rs",
+      "source_sha256": "35e728ceafd42ae0f3eadecf34eaf335bb642b9c7417f5f29d1c7486d27f7cb7"
+    },
+    {
+      "path": "crates/cf-unwrapper/src/xml/imp/check.rs",
+      "sha256": "10024e1a4cec988bbeb2cd85a1f4186159115b01996c9318e4257ad300cde072",
+      "source_path": "src/xml/imp/check.rs",
+      "source_sha256": "0c3eb3c038baabd5dd8c0406449f8f7f98bc393d06c9e98728bf35ea4233e381"
+    },
+    {
+      "path": "crates/cf-unwrapper/src/xml/imp/config.rs",
+      "sha256": "99e0588ddb222098f799b717af617c274b2793d484bd590c0eda74b767b8cac4",
+      "source_path": "src/xml/imp/config.rs",
+      "source_sha256": "8c980a6baa2d72020d0d656c1ee27cf45f14a8dc37a73bebc0776b2956312e4b"
+    },
+    {
+      "path": "crates/cf-unwrapper/src/xml/imp/dcs.rs",
+      "sha256": "074e2bd87826051d3c0c9978e69e16cc56a9b785c868e91375e274a74ecfbdd4",
+      "source_path": "src/xml/imp/dcs.rs",
+      "source_sha256": "074e2bd87826051d3c0c9978e69e16cc56a9b785c868e91375e274a74ecfbdd4"
+    },
+    {
+      "path": "crates/cf-unwrapper/src/xml/imp/desc.rs",
+      "sha256": "bb8d5789e716e50f2da6a00f297f1e1e5c09d1377eac7b69e0aa0c95bbd3cdc5",
+      "source_path": "src/xml/imp/desc.rs",
+      "source_sha256": "1c9a037552ad5b495be520d016f877cc82336f01f9e5e74d214c341d49b2aa14"
+    },
+    {
+      "path": "crates/cf-unwrapper/src/xml/imp/dom.rs",
+      "sha256": "cde6f5b063d2cbb823042c7f04c269a51c5f8161cb79c592810f123e846a6890",
+      "source_path": "src/xml/imp/dom.rs",
+      "source_sha256": "cde6f5b063d2cbb823042c7f04c269a51c5f8161cb79c592810f123e846a6890"
+    },
+    {
+      "path": "crates/cf-unwrapper/src/xml/imp/ext.rs",
+      "sha256": "f9adc9c47da0c89ff40f6f379d2d5e6a41e28fc750188c6d0b244fee074a5563",
+      "source_path": "src/xml/imp/ext.rs",
+      "source_sha256": "f9adc9c47da0c89ff40f6f379d2d5e6a41e28fc750188c6d0b244fee074a5563"
+    },
+    {
+      "path": "crates/cf-unwrapper/src/xml/imp/flowchart.rs",
+      "sha256": "dadcceeddbe15bb7a7dce496ec419afa266d2a2024d75b35bf986523ef1717f1",
+      "source_path": "src/xml/imp/flowchart.rs",
+      "source_sha256": "061de3e92c9f15943ee30cd2d934b6e9c5dea14abdb969347a09e272c9851199"
+    },
+    {
+      "path": "crates/cf-unwrapper/src/xml/imp/form/cmdset.rs",
+      "sha256": "f12b8f811a88e30c4ee7d1ade706f0e44bfbb45954c7c8e5b9eb6ffffff3c8e8",
+      "source_path": "src/xml/imp/form/cmdset.rs",
+      "source_sha256": "e7cf3f5663607a8f1c2e3b3b8268fa8c427cf6b4a965c041d7ab4e2545881df5"
+    },
+    {
+      "path": "crates/cf-unwrapper/src/xml/imp/form/dlist.rs",
+      "sha256": "fab8e4f7ff54362fd1904450638a6b965a4ba8d8305e82e805a5f95dc0dbefaa",
+      "source_path": "src/xml/imp/form/dlist.rs",
+      "source_sha256": "fab8e4f7ff54362fd1904450638a6b965a4ba8d8305e82e805a5f95dc0dbefaa"
+    },
+    {
+      "path": "crates/cf-unwrapper/src/xml/imp/form/dlist_settings.rs",
+      "sha256": "749c1fb652d511e8417935b7a15e06abfb377181c92f21633ff0cf3edefd567f",
+      "source_path": "src/xml/imp/form/dlist_settings.rs",
+      "source_sha256": "9151aa463d754c79479f3978840513089270710b74d0a345063d9d5bd856601c"
+    },
+    {
+      "path": "crates/cf-unwrapper/src/xml/imp/form/fields.rs",
+      "sha256": "7c92a64f8b039ad06e075f2c953850f1b0bc9efa9b1926c1445d3fc111339e8e",
+      "source_path": "src/xml/imp/form/fields.rs",
+      "source_sha256": "7c92a64f8b039ad06e075f2c953850f1b0bc9efa9b1926c1445d3fc111339e8e"
+    },
+    {
+      "path": "crates/cf-unwrapper/src/xml/imp/form/items.rs",
+      "sha256": "e979b35c1dfe41ff31dee3da802a803bb842ba65d68a852fbff7632b949b0b54",
+      "source_path": "src/xml/imp/form/items.rs",
+      "source_sha256": "e979b35c1dfe41ff31dee3da802a803bb842ba65d68a852fbff7632b949b0b54"
+    },
+    {
+      "path": "crates/cf-unwrapper/src/xml/imp/form/path.rs",
+      "sha256": "43a8a96712733e5268fc50737d72b47eca3f713592a9df1713290302dda00379",
+      "source_path": "src/xml/imp/form/path.rs",
+      "source_sha256": "43a8a96712733e5268fc50737d72b47eca3f713592a9df1713290302dda00379"
+    },
+    {
+      "path": "crates/cf-unwrapper/src/xml/imp/form/platform.rs",
+      "sha256": "8bb111d058cde7a01c6c9f68549b16867be717e8a53b8ec2cb1a817cfde3721b",
+      "source_path": "src/xml/imp/form/platform.rs",
+      "source_sha256": "89b5771ca3d5b5a0e5e3d915161c2c15eb6c6501bf2ed0a4839ed97b8eefe771"
+    },
+    {
+      "path": "crates/cf-unwrapper/src/xml/imp/form/table.rs",
+      "sha256": "b440d2ea320d2c2c222668d19d81bbb093d2a8837b87dd6b986663cbe3a45991",
+      "source_path": "src/xml/imp/form/table.rs",
+      "source_sha256": "b440d2ea320d2c2c222668d19d81bbb093d2a8837b87dd6b986663cbe3a45991"
+    },
+    {
+      "path": "crates/cf-unwrapper/src/xml/imp/form.rs",
+      "sha256": "3c1b008447e13e87bd3199f4c36ec0c620cf4d9b706dfa3e22d0f4eeefa55250",
+      "source_path": "src/xml/imp/form.rs",
+      "source_sha256": "3c1b008447e13e87bd3199f4c36ec0c620cf4d9b706dfa3e22d0f4eeefa55250"
+    },
+    {
+      "path": "crates/cf-unwrapper/src/xml/imp/hashorder.rs",
+      "sha256": "f5f30e10317a480e67c7d585d03ab2dc3bd51e71b41045a11a6ce7639ba8fa0a",
+      "source_path": "src/xml/imp/hashorder.rs",
+      "source_sha256": "f5f30e10317a480e67c7d585d03ab2dc3bd51e71b41045a11a6ce7639ba8fa0a"
+    },
+    {
+      "path": "crates/cf-unwrapper/src/xml/imp/html.rs",
+      "sha256": "40ae1ad5b746ea8e9e864f6fb815fc9eb42c12ce349b16bf8d8dccc725ec84cc",
+      "source_path": "src/xml/imp/html.rs",
+      "source_sha256": "2b44118b114db4f3e8e69329ee505f2d7df376ee944f1c9dc454be1ad5afa828"
+    },
+    {
+      "path": "crates/cf-unwrapper/src/xml/imp/index.rs",
+      "sha256": "794ea3d773fc2c619c0674127d204bdac5505238b23a22833aa1d185b30d2c49",
+      "source_path": "src/xml/imp/index.rs",
+      "source_sha256": "794ea3d773fc2c619c0674127d204bdac5505238b23a22833aa1d185b30d2c49"
+    },
+    {
+      "path": "crates/cf-unwrapper/src/xml/imp/mod.rs",
+      "sha256": "f2cd9cbafa045647160ada8a1a38c108f983558c4c1b3ac912a2af3ef6912d25",
+      "source_path": "src/xml/imp/mod.rs",
+      "source_sha256": "8ffbc41d2879cb29c7bd61874b800d04b4fa4a230877a748b8ba1c9d5fba13d9"
+    },
+    {
+      "path": "crates/cf-unwrapper/src/xml/imp/module.rs",
+      "sha256": "9f1dc2d39747ccd4dc91f88e1f2284a7016a5a66314d042430398dd650e1fc47",
+      "source_path": "src/xml/imp/module.rs",
+      "source_sha256": "9f1dc2d39747ccd4dc91f88e1f2284a7016a5a66314d042430398dd650e1fc47"
+    },
+    {
+      "path": "crates/cf-unwrapper/src/xml/imp/mxl.rs",
+      "sha256": "c2edd81c7d21ddc5ea2c5f9bda13fa220ca57aed0b2e97c7281ef8a5cbd4743e",
+      "source_path": "src/xml/imp/mxl.rs",
+      "source_sha256": "c2edd81c7d21ddc5ea2c5f9bda13fa220ca57aed0b2e97c7281ef8a5cbd4743e"
+    },
+    {
+      "path": "crates/cf-unwrapper/src/xml/imp/part0/part0.cf",
+      "sha256": "40380b32a85ee6773856b80f950d19fa7cd3afd4c78a83148969946b4a57df2e",
+      "source_path": "src/xml/imp/part0/part0.cf",
+      "source_sha256": "40380b32a85ee6773856b80f950d19fa7cd3afd4c78a83148969946b4a57df2e"
+    },
+    {
+      "path": "crates/cf-unwrapper/src/xml/imp/payload.rs",
+      "sha256": "69afa03d603a380eb68bdd786e826075777742aeb9b2e2c013f75f19f54ecbc5",
+      "source_path": "src/xml/imp/payload.rs",
+      "source_sha256": "69afa03d603a380eb68bdd786e826075777742aeb9b2e2c013f75f19f54ecbc5"
+    },
+    {
+      "path": "crates/cf-unwrapper/src/xml/imp/predef.rs",
+      "sha256": "f192ef173fcb44962b05dfdf1b7e425969f7d189f079ca6cabf5e1246fdfd013",
+      "source_path": "src/xml/imp/predef.rs",
+      "source_sha256": "f192ef173fcb44962b05dfdf1b7e425969f7d189f079ca6cabf5e1246fdfd013"
+    },
+    {
+      "path": "crates/cf-unwrapper/src/xml/imp/refs.rs",
+      "sha256": "1efbe85cc525384b532b6036cdd9cf7d3eb79a68f4257f81a44e928e9beab4c5",
+      "source_path": "src/xml/imp/refs.rs",
+      "source_sha256": "9920aed712502d0fcd014e457aed059f60f821b810c368aa16b158c027a92458"
+    },
+    {
+      "path": "crates/cf-unwrapper/src/xml/imp/rights/tab.rs",
+      "sha256": "2d6d2a55ef21bbcbad7d1efb9e61adf610d50d3b76239ebbca286797bb3672e6",
+      "source_path": "src/xml/imp/rights/tab.rs",
+      "source_sha256": "2d6d2a55ef21bbcbad7d1efb9e61adf610d50d3b76239ebbca286797bb3672e6"
+    },
+    {
+      "path": "crates/cf-unwrapper/src/xml/imp/rights.rs",
+      "sha256": "66ec92b230be21c7c00b6a5438c5d23690dc8de013cb9268b92436fb3a1ecd6a",
+      "source_path": "src/xml/imp/rights.rs",
+      "source_sha256": "fc61b0cdea4a723490daa85457da0be16932aff9150df6016087e81a0b54e815"
+    },
+    {
+      "path": "crates/cf-unwrapper/src/xml/imp/standard.rs",
+      "sha256": "d74ead5d0635f9187ea69eacf3ccd05b0ee2bffca01fbdf364280ef365fdc040",
+      "source_path": "src/xml/imp/standard.rs",
+      "source_sha256": "27acaa5bd253626c438cb0ee500986d8e6f99e9232c0b06e48d3f85015298050"
+    },
+    {
+      "path": "crates/cf-unwrapper/src/xml/imp/tpl.rs",
+      "sha256": "8ef53f35f7766bcc73a6c86bc8d1cf3f508bf1b9f55cb142df6b69aa80bb434b",
+      "source_path": "src/xml/imp/tpl.rs",
+      "source_sha256": "8ef53f35f7766bcc73a6c86bc8d1cf3f508bf1b9f55cb142df6b69aa80bb434b"
+    },
+    {
+      "path": "crates/cf-unwrapper/src/xml/imp/ui.rs",
+      "sha256": "c6a5b5dcd8b65aac304c94cb01a4faab93da413e3c7993120be1388bf137d4fa",
+      "source_path": "src/xml/imp/ui.rs",
+      "source_sha256": "f28a2d560d125cd8d92f57ba0225000f9d537757a53750e914a37cabeefae0bd"
+    },
+    {
+      "path": "crates/cf-unwrapper/src/xml/mod.rs",
+      "sha256": "fc2a1c1435f664e7c77752f92762afd831d3a12907d152669a05757f6bf96f76",
+      "source_path": "src/xml/mod.rs",
+      "source_sha256": "fc2a1c1435f664e7c77752f92762afd831d3a12907d152669a05757f6bf96f76"
+    },
+    {
+      "path": "crates/cf-unwrapper/src/xml/mxl.rs",
+      "sha256": "fe410565d447fe434a34117d11b6e112224b63360784ca926259bbdb1b16eb59",
+      "source_path": "src/xml/mxl.rs",
+      "source_sha256": "145f6a38b935d831e81f3d02db0ea6d2912c8e5b10cb0c3d7a20d8e0c30468b2"
+    },
+    {
+      "path": "crates/cf-unwrapper/src/xml/new/AccumulationRegister.xml",
+      "sha256": "c2f3be6fc73239cf72b1d3ab8b20ac368576573f9e17fcb39c344122ee034765",
+      "source_path": "src/xml/new/AccumulationRegister.xml",
+      "source_sha256": "c2f3be6fc73239cf72b1d3ab8b20ac368576573f9e17fcb39c344122ee034765"
+    },
+    {
+      "path": "crates/cf-unwrapper/src/xml/new/Catalog.xml",
+      "sha256": "663f752f51b001c0d5e6503b2ec5369e18aabd2bff57734629ed0dfa67c7ca72",
+      "source_path": "src/xml/new/Catalog.xml",
+      "source_sha256": "663f752f51b001c0d5e6503b2ec5369e18aabd2bff57734629ed0dfa67c7ca72"
+    },
+    {
+      "path": "crates/cf-unwrapper/src/xml/new/CatalogCopy.xml",
+      "sha256": "60ebf0f25ed251e4b1c53b80f93eb24d09b0afd2d312945ca929e47ef28d3c74",
+      "source_path": "src/xml/new/CatalogCopy.xml",
+      "source_sha256": "60ebf0f25ed251e4b1c53b80f93eb24d09b0afd2d312945ca929e47ef28d3c74"
+    },
+    {
+      "path": "crates/cf-unwrapper/src/xml/new/ChartOfCharacteristicTypes.xml",
+      "sha256": "d5cc32bda5576a4be0af8396de0a186f40e8339b12c943114c65ea62f61908fe",
+      "source_path": "src/xml/new/ChartOfCharacteristicTypes.xml",
+      "source_sha256": "d5cc32bda5576a4be0af8396de0a186f40e8339b12c943114c65ea62f61908fe"
+    },
+    {
+      "path": "crates/cf-unwrapper/src/xml/new/CommandModule.bsl",
+      "sha256": "b1d0190acc614934e60b1e9c6934ff5792d58950d5d43cc3948d1ffb32c94a4f",
+      "source_path": "src/xml/new/CommandModule.bsl",
+      "source_sha256": "b1d0190acc614934e60b1e9c6934ff5792d58950d5d43cc3948d1ffb32c94a4f"
+    },
+    {
+      "path": "crates/cf-unwrapper/src/xml/new/CommonModule.xml",
+      "sha256": "7a0fbbfeaf5af667eee8487af32db62faa94e9801158f2f42910f0d2528ae179",
+      "source_path": "src/xml/new/CommonModule.xml",
+      "source_sha256": "7a0fbbfeaf5af667eee8487af32db62faa94e9801158f2f42910f0d2528ae179"
+    },
+    {
+      "path": "crates/cf-unwrapper/src/xml/new/Constant.xml",
+      "sha256": "b09f2bd0e47e2f6d8ceb078f6de8162ae7458ecfb91098988f0efd140fe5a784",
+      "source_path": "src/xml/new/Constant.xml",
+      "source_sha256": "b09f2bd0e47e2f6d8ceb078f6de8162ae7458ecfb91098988f0efd140fe5a784"
+    },
+    {
+      "path": "crates/cf-unwrapper/src/xml/new/DataProcessor.xml",
+      "sha256": "3a87c58cc8bc179d9be30a3c9687c30fee89801b6952f820f1ec51772ec7f792",
+      "source_path": "src/xml/new/DataProcessor.xml",
+      "source_sha256": "3a87c58cc8bc179d9be30a3c9687c30fee89801b6952f820f1ec51772ec7f792"
+    },
+    {
+      "path": "crates/cf-unwrapper/src/xml/new/designer/c1-item-2cols.xml",
+      "sha256": "b5062883ba3b44bca070f945f3a66339e33a37839a9989aa6d448c5b31396bd2",
+      "source_path": "src/xml/new/designer/c1-item-2cols.xml",
+      "source_sha256": "b5062883ba3b44bca070f945f3a66339e33a37839a9989aa6d448c5b31396bd2"
+    },
+    {
+      "path": "crates/cf-unwrapper/src/xml/new/designer/c1-item-elements.xml",
+      "sha256": "7ed3bf494b6d1b7e2ff68e6f03d68da7ba00fb070d50d9d333aef0e04af51ebd",
+      "source_path": "src/xml/new/designer/c1-item-elements.xml",
+      "source_sha256": "7ed3bf494b6d1b7e2ff68e6f03d68da7ba00fb070d50d9d333aef0e04af51ebd"
+    },
+    {
+      "path": "crates/cf-unwrapper/src/xml/new/designer/c1-item.xml",
+      "sha256": "15749d935919f95aed8798c105d3c542f82f62e864aa21e9117f466dfa0f1997",
+      "source_path": "src/xml/new/designer/c1-item.xml",
+      "source_sha256": "15749d935919f95aed8798c105d3c542f82f62e864aa21e9117f466dfa0f1997"
+    },
+    {
+      "path": "crates/cf-unwrapper/src/xml/new/designer/c1-list.xml",
+      "sha256": "bed31d6545fbe1bb418a77833cb8f29fdc2aeec3199f3be978d31dde7a072d7d",
+      "source_path": "src/xml/new/designer/c1-list.xml",
+      "source_sha256": "bed31d6545fbe1bb418a77833cb8f29fdc2aeec3199f3be978d31dde7a072d7d"
+    },
+    {
+      "path": "crates/cf-unwrapper/src/xml/new/designer/c2-item-4cols.xml",
+      "sha256": "be78d78b1461b374443e3293da20ec86ae194f011e7f25f9d39d72ac5bfd37e3",
+      "source_path": "src/xml/new/designer/c2-item-4cols.xml",
+      "source_sha256": "be78d78b1461b374443e3293da20ec86ae194f011e7f25f9d39d72ac5bfd37e3"
+    },
+    {
+      "path": "crates/cf-unwrapper/src/xml/new/designer/c2-item-layout.xml",
+      "sha256": "ed0947f8d5e2d27a4d6eb66f0d20e87bb9419ffe7da2b20c6c99411f566bc6b6",
+      "source_path": "src/xml/new/designer/c2-item-layout.xml",
+      "source_sha256": "ed0947f8d5e2d27a4d6eb66f0d20e87bb9419ffe7da2b20c6c99411f566bc6b6"
+    },
+    {
+      "path": "crates/cf-unwrapper/src/xml/new/designer/c2-item-props.xml",
+      "sha256": "16bf9cb1e3bdbbff0d78a97c4cb07ca3a4887c6d54dcc15daf02c2a72e418197",
+      "source_path": "src/xml/new/designer/c2-item-props.xml",
+      "source_sha256": "16bf9cb1e3bdbbff0d78a97c4cb07ca3a4887c6d54dcc15daf02c2a72e418197"
+    },
+    {
+      "path": "crates/cf-unwrapper/src/xml/new/designer/c2-item.xml",
+      "sha256": "207764baf0c431b6162fd3ec407b493f083c9224f6c5a30717b28cec5c22bb39",
+      "source_path": "src/xml/new/designer/c2-item.xml",
+      "source_sha256": "207764baf0c431b6162fd3ec407b493f083c9224f6c5a30717b28cec5c22bb39"
+    },
+    {
+      "path": "crates/cf-unwrapper/src/xml/new/designer/c3-custom.xml",
+      "sha256": "e9076f98aca740133ec597fe753ab3de73a11c24c975694adb348cdce89f1af3",
+      "source_path": "src/xml/new/designer/c3-custom.xml",
+      "source_sha256": "e9076f98aca740133ec597fe753ab3de73a11c24c975694adb348cdce89f1af3"
+    },
+    {
+      "path": "crates/cf-unwrapper/src/xml/new/designer/c3-folder.xml",
+      "sha256": "c8f3ed787bd5d653a9250f5ffa94436d911c455766d599d042921868a1fb77cf",
+      "source_path": "src/xml/new/designer/c3-folder.xml",
+      "source_sha256": "c8f3ed787bd5d653a9250f5ffa94436d911c455766d599d042921868a1fb77cf"
+    },
+    {
+      "path": "crates/cf-unwrapper/src/xml/new/designer/c3-folderchoice.xml",
+      "sha256": "980cfcad034f865f3b67523b74991bb24d40e4850ab194043950f6fb1a9df82c",
+      "source_path": "src/xml/new/designer/c3-folderchoice.xml",
+      "source_sha256": "980cfcad034f865f3b67523b74991bb24d40e4850ab194043950f6fb1a9df82c"
+    },
+    {
+      "path": "crates/cf-unwrapper/src/xml/new/designer/c3-item.xml",
+      "sha256": "16a1cd31ef4a952af619ccf596b0cf144029a03318b35347294e1b3c54a6717f",
+      "source_path": "src/xml/new/designer/c3-item.xml",
+      "source_sha256": "16a1cd31ef4a952af619ccf596b0cf144029a03318b35347294e1b3c54a6717f"
+    },
+    {
+      "path": "crates/cf-unwrapper/src/xml/new/designer/d1-choice.xml",
+      "sha256": "b8fb9b6a417432459ceb06beb9410a30b41cd8789ab0b21aa5e87ff43ce927c9",
+      "source_path": "src/xml/new/designer/d1-choice.xml",
+      "source_sha256": "b8fb9b6a417432459ceb06beb9410a30b41cd8789ab0b21aa5e87ff43ce927c9"
+    },
+    {
+      "path": "crates/cf-unwrapper/src/xml/new/designer/d1-item-layout.xml",
+      "sha256": "eec8f90c94ed49c144bb27d4874602f7b44a77d57adae00549a82084731dac08",
+      "source_path": "src/xml/new/designer/d1-item-layout.xml",
+      "source_sha256": "eec8f90c94ed49c144bb27d4874602f7b44a77d57adae00549a82084731dac08"
+    },
+    {
+      "path": "crates/cf-unwrapper/src/xml/new/designer/d1-item.xml",
+      "sha256": "56232991d44eb03215c4e8ebe9cc0b275163d2a0dac373fffbaaf478f4007e46",
+      "source_path": "src/xml/new/designer/d1-item.xml",
+      "source_sha256": "56232991d44eb03215c4e8ebe9cc0b275163d2a0dac373fffbaaf478f4007e46"
+    },
+    {
+      "path": "crates/cf-unwrapper/src/xml/new/Document.xml",
+      "sha256": "0b960b00ab1898465702168d7bee5997fda2e0566b7e868769c9a600e6e5c95f",
+      "source_path": "src/xml/new/Document.xml",
+      "source_sha256": "0b960b00ab1898465702168d7bee5997fda2e0566b7e868769c9a600e6e5c95f"
+    },
+    {
+      "path": "crates/cf-unwrapper/src/xml/new/Enum.xml",
+      "sha256": "e46c8fb3f2ccdca8e6c51a581002ee594be46cb9303269569f1d0b27e6c5f0f7",
+      "source_path": "src/xml/new/Enum.xml",
+      "source_sha256": "e46c8fb3f2ccdca8e6c51a581002ee594be46cb9303269569f1d0b27e6c5f0f7"
+    },
+    {
+      "path": "crates/cf-unwrapper/src/xml/new/forms/CatalogChoice.xml",
+      "sha256": "e73234e20abfbb51d328cfa533fbef98b064f440edea312e987e01285765d84e",
+      "source_path": "src/xml/new/forms/CatalogChoice.xml",
+      "source_sha256": "e73234e20abfbb51d328cfa533fbef98b064f440edea312e987e01285765d84e"
+    },
+    {
+      "path": "crates/cf-unwrapper/src/xml/new/forms/CatalogChoiceTree.xml",
+      "sha256": "d586ae2b0a2c109694580d1dee78158ed86fd626d749c0f263579d0e88f4f65a",
+      "source_path": "src/xml/new/forms/CatalogChoiceTree.xml",
+      "source_sha256": "d586ae2b0a2c109694580d1dee78158ed86fd626d749c0f263579d0e88f4f65a"
+    },
+    {
+      "path": "crates/cf-unwrapper/src/xml/new/forms/CatalogFolderChoice.xml",
+      "sha256": "980cfcad034f865f3b67523b74991bb24d40e4850ab194043950f6fb1a9df82c",
+      "source_path": "src/xml/new/forms/CatalogFolderChoice.xml",
+      "source_sha256": "980cfcad034f865f3b67523b74991bb24d40e4850ab194043950f6fb1a9df82c"
+    },
+    {
+      "path": "crates/cf-unwrapper/src/xml/new/forms/CatalogList.xml",
+      "sha256": "b755b40d2bce5ed2890e1b2dcf0a54a6e2509e9ac5815b3a81b90fd81d6120f1",
+      "source_path": "src/xml/new/forms/CatalogList.xml",
+      "source_sha256": "b755b40d2bce5ed2890e1b2dcf0a54a6e2509e9ac5815b3a81b90fd81d6120f1"
+    },
+    {
+      "path": "crates/cf-unwrapper/src/xml/new/forms/CatalogListTree.xml",
+      "sha256": "93f74cad3a294a63f2ae99222d18ce3eafa2bc354e035207994c71e169c08eb3",
+      "source_path": "src/xml/new/forms/CatalogListTree.xml",
+      "source_sha256": "93f74cad3a294a63f2ae99222d18ce3eafa2bc354e035207994c71e169c08eb3"
+    },
+    {
+      "path": "crates/cf-unwrapper/src/xml/new/forms/DocumentChoice.xml",
+      "sha256": "b8fb9b6a417432459ceb06beb9410a30b41cd8789ab0b21aa5e87ff43ce927c9",
+      "source_path": "src/xml/new/forms/DocumentChoice.xml",
+      "source_sha256": "b8fb9b6a417432459ceb06beb9410a30b41cd8789ab0b21aa5e87ff43ce927c9"
+    },
+    {
+      "path": "crates/cf-unwrapper/src/xml/new/forms/DocumentList.xml",
+      "sha256": "39e70a0073cee130cb8a690f65c6fda34547e38a8a59046f15d3e6f6ed851153",
+      "source_path": "src/xml/new/forms/DocumentList.xml",
+      "source_sha256": "39e70a0073cee130cb8a690f65c6fda34547e38a8a59046f15d3e6f6ed851153"
+    },
+    {
+      "path": "crates/cf-unwrapper/src/xml/new/forms/Form.xml",
+      "sha256": "4d648e2bf24f47eff4914338930105470b2a4b42404cede54a9c92022932ad90",
+      "source_path": "src/xml/new/forms/Form.xml",
+      "source_sha256": "4d648e2bf24f47eff4914338930105470b2a4b42404cede54a9c92022932ad90"
+    },
+    {
+      "path": "crates/cf-unwrapper/src/xml/new/InformationRegister.xml",
+      "sha256": "09714edac8c1766782441ae9056634763f0960b73b7e5b037a4a5323ab1a76cd",
+      "source_path": "src/xml/new/InformationRegister.xml",
+      "source_sha256": "09714edac8c1766782441ae9056634763f0960b73b7e5b037a4a5323ab1a76cd"
+    },
+    {
+      "path": "crates/cf-unwrapper/src/xml/new/Report.xml",
+      "sha256": "8c032d22a89c45418c9549b3ba69885e18a49f9d9a885147af9acf93c6a6ba06",
+      "source_path": "src/xml/new/Report.xml",
+      "source_sha256": "8c032d22a89c45418c9549b3ba69885e18a49f9d9a885147af9acf93c6a6ba06"
+    },
+    {
+      "path": "crates/cf-unwrapper/src/xml/new/Subsystem.xml",
+      "sha256": "2a61eb1955be2a5521c7abdfa36e27fb1ef3aa114f5dbac10b78fef870b59ec1",
+      "source_path": "src/xml/new/Subsystem.xml",
+      "source_sha256": "2a61eb1955be2a5521c7abdfa36e27fb1ef3aa114f5dbac10b78fef870b59ec1"
+    },
+    {
+      "path": "crates/cf-unwrapper/src/xml/new/TabularSectionLineNumber.xml",
+      "sha256": "e0a04d125bace1422e78c732c0d94fa778c010bb8d6fefd1feba6bdf3a823aa1",
+      "source_path": "src/xml/new/TabularSectionLineNumber.xml",
+      "source_sha256": "e0a04d125bace1422e78c732c0d94fa778c010bb8d6fefd1feba6bdf3a823aa1"
+    },
+    {
+      "path": "crates/cf-unwrapper/src/xml/new/Template.xml",
+      "sha256": "6641be23d4817ba0f43a0819b0e4ad2acfa23076d9ad9f37d357d8e2c36bd00f",
+      "source_path": "src/xml/new/Template.xml",
+      "source_sha256": "6641be23d4817ba0f43a0819b0e4ad2acfa23076d9ad9f37d357d8e2c36bd00f"
+    },
+    {
+      "path": "crates/cf-unwrapper/src/xml/new/templates/DataCompositionAppearanceTemplate.bin",
+      "sha256": "dfe19fdcd3f48b812763ac77956c153fc4733fb586fabf2fc7939e167740e302",
+      "source_path": "src/xml/new/templates/DataCompositionAppearanceTemplate.bin",
+      "source_sha256": "dfe19fdcd3f48b812763ac77956c153fc4733fb586fabf2fc7939e167740e302"
+    },
+    {
+      "path": "crates/cf-unwrapper/src/xml/new/templates/DataCompositionSchema.bin",
+      "sha256": "df1a2ea185d66dd486d29fa54f8e92dc48ca6ea194ba3d131d2932fb2591f0d8",
+      "source_path": "src/xml/new/templates/DataCompositionSchema.bin",
+      "source_sha256": "df1a2ea185d66dd486d29fa54f8e92dc48ca6ea194ba3d131d2932fb2591f0d8"
+    },
+    {
+      "path": "crates/cf-unwrapper/src/xml/new/templates/GeographicalSchema.bin",
+      "sha256": "9e58d6e26f05c43054a6ddbac5f0fbcdd63d534fdcff33c6b338aee04cfde23f",
+      "source_path": "src/xml/new/templates/GeographicalSchema.bin",
+      "source_sha256": "9e58d6e26f05c43054a6ddbac5f0fbcdd63d534fdcff33c6b338aee04cfde23f"
+    },
+    {
+      "path": "crates/cf-unwrapper/src/xml/new/templates/GraphicalSchema.bin",
+      "sha256": "57553b93c47d7c9ae8e625c2efeff61099d1188f8009affcfab48c37cb2aaf64",
+      "source_path": "src/xml/new/templates/GraphicalSchema.bin",
+      "source_sha256": "57553b93c47d7c9ae8e625c2efeff61099d1188f8009affcfab48c37cb2aaf64"
+    },
+    {
+      "path": "crates/cf-unwrapper/src/xml/new/templates/TextDocument.bin",
+      "sha256": "f1945cd6c19e56b3c1c78943ef5ec18116907a4ca1efc40a57d48ab1db7adfc5",
+      "source_path": "src/xml/new/templates/TextDocument.bin",
+      "source_sha256": "f1945cd6c19e56b3c1c78943ef5ec18116907a4ca1efc40a57d48ab1db7adfc5"
+    },
+    {
+      "path": "crates/cf-unwrapper/src/xml/newform.rs",
+      "sha256": "234bc3ee64ff50287fb16184e13b3c018e6b7d5f352ca8e53010fd4d00bba34e",
+      "source_path": "src/xml/newform.rs",
+      "source_sha256": "234bc3ee64ff50287fb16184e13b3c018e6b7d5f352ca8e53010fd4d00bba34e"
+    },
+    {
+      "path": "crates/cf-unwrapper/src/xml/payload.rs",
+      "sha256": "f4bdd27e55866f4442c9bb2c0f9f9ff228f6781d3eea3ce0e559e1a1bdb95e28",
+      "source_path": "src/xml/payload.rs",
+      "source_sha256": "f4bdd27e55866f4442c9bb2c0f9f9ff228f6781d3eea3ce0e559e1a1bdb95e28"
+    },
+    {
+      "path": "crates/cf-unwrapper/src/xml/predefined.rs",
+      "sha256": "b32245f506c526ce4ed1f90cab06214eb4872e4e4df1f5f84b6e551ba57b2eca",
+      "source_path": "src/xml/predefined.rs",
+      "source_sha256": "b32245f506c526ce4ed1f90cab06214eb4872e4e4df1f5f84b6e551ba57b2eca"
+    },
+    {
+      "path": "crates/cf-unwrapper/src/xml/rights.rs",
+      "sha256": "27db69e13c4dad763df26b03b1d37b66eb0259a8dee2196279e1d32666887188",
+      "source_path": "src/xml/rights.rs",
+      "source_sha256": "c976d6a80d1967eeb66477a058b75f249fa5c9ec34de51f22db600349366e970"
+    },
+    {
+      "path": "crates/cf-unwrapper/src/xml/standard.rs",
+      "sha256": "94e2f58225c01cd149fe7d219819a2daf2e048941c90d7e2fc34c4c4cf6d11f7",
+      "source_path": "src/xml/standard.rs",
+      "source_sha256": "94e2f58225c01cd149fe7d219819a2daf2e048941c90d7e2fc34c4c4cf6d11f7"
+    },
+    {
+      "path": "crates/cf-unwrapper/src/xml/ui.rs",
+      "sha256": "d7a524b0bdb06e786f4e070702e5a0071c8d9dc010ce365805ad75b2bafcbdd3",
+      "source_path": "src/xml/ui.rs",
+      "source_sha256": "313dd0b8afec23fc6e630760c3631bb7ed2f92b97f08a37a6ec79c3e78d3b0dd"
+    },
+    {
+      "path": "crates/cf-unwrapper/src/xml/w.rs",
+      "sha256": "d211cceae21b122d1d887d40de36dbd68b99d9683763fdf57d9711b224fdcd89",
+      "source_path": "src/xml/w.rs",
+      "source_sha256": "063527c19c383a2ff074d744bf02d8eef17a7d6d4e3174f688465b024ff22c00"
+    },
+    {
+      "path": "crates/cf-unwrapper/src/xml/xdto_table.rs",
+      "sha256": "671a8c70ac9a28ea3816b11455f696fedd625f845d45e7f76e35ccb7e2243273",
+      "source_path": "src/xml/xdto_table.rs",
+      "source_sha256": "671a8c70ac9a28ea3816b11455f696fedd625f845d45e7f76e35ccb7e2243273"
+    },
+    {
+      "path": "crates/cf-unwrapper/formats/2.17.txt",
+      "sha256": "e7c500fb20b0d1f92319ea0f26183d30c78b2862984ef6cd103aa851484b9279",
+      "source_path": "formats/2.17.txt",
+      "source_sha256": "e7c500fb20b0d1f92319ea0f26183d30c78b2862984ef6cd103aa851484b9279"
+    },
+    {
+      "path": "crates/cf-unwrapper/formats/2.20.txt",
+      "sha256": "2fc4a5525cda998fad958d7f29a97103f5ab9bccaa104a24c329b3cd695ec272",
+      "source_path": "formats/2.20.txt",
+      "source_sha256": "2fc4a5525cda998fad958d7f29a97103f5ab9bccaa104a24c329b3cd695ec272"
+    },
+    {
+      "path": "crates/cf-unwrapper/formats/compat-8.3.16.txt",
+      "sha256": "fd33a9736fff69ac292c306842ddd3138a8cc90a6b31438f0199f4a8366c24b5",
+      "source_path": "formats/compat-8.3.16.txt",
+      "source_sha256": "fd33a9736fff69ac292c306842ddd3138a8cc90a6b31438f0199f4a8366c24b5"
+    }
+  ]
+}

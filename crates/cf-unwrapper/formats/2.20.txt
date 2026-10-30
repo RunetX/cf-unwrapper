@@ -1,0 +1,66 @@
+# Формат выгрузки 2.20 (платформа 8.3.27) из 2.21 (8.5): что меняется при понижении.
+# Выведено сверкой выгрузок БП 3.0.107 (режим совместимости 8.3.16) платформами 8.3.24, 8.3.27 и 8.5.1, 29.10.2026.
+#
+# Правила (по строке; `in A|B/C` — родитель элемента, суффикс пути):
+#   absent  Э [in Р] [= з1|з2]   элемента в формате нет: значения из списка опускаются, прочие — ошибка
+#   default Э [in Р] = з         формат не пишет значение по умолчанию
+#   value   Э [in Р] = нов > стар   значение переименовано (`*:x` — с любым префиксом)
+#   rename  Э [in Р] > Стар      элемент переименован
+#   insert  Э in Р = з [unless Э2|Э3] before Э4|Э5   формат пишет элемент, которого у 2.21 нет
+#   attr-drop Э|* атрибут        атрибута в формате нет
+#   refuse  Э has подстрока       по тексту 2.21 не выразить — ошибка файла (выгрузка из .cf пишет это сама)
+#
+# Значения в `absent` — те, что встретились в конфигурации, выгруженной 8.3.24: платформа 8.5 выводит их из
+# других свойств. Другое значение — свойство задано в 8.5 явно, в 2.17 его не выразить, и выгрузка отказывает.
+
+version 2.20
+
+attr-drop * xmlns:pal
+
+# свойства объектов метаданных
+absent UseInInterfaceCompatibilityMode = Any
+absent AuxiliaryVariantForm = ""
+absent Color = auto
+
+# формы
+absent AutoEditMode = true
+absent ButtonImportance = Main|Supplementary
+absent ShowCommandBar = true|false
+absent MarkRequiredComplete = true|false
+absent CellHyperlinkRepresentation = Show
+absent CellHyperlinkDisplayVariant = Always
+absent ComplexSettingsViewMode = Show
+absent PictureColor
+
+# картинка значения в СКД: 8.5 пишет <Ref>CommonPicture.X</Ref>, прежние — как хранится (ref="v8ui:X" или ref="0:guid")
+refuse dcscor:value has xcf/readable
+default WindowOpeningMode in Form = DontBlock
+value WindowOpeningMode in Form = LockOwner > LockOwnerWindow
+default Group in Form|Page = Vertical
+default Group in UsualGroup = HorizontalIfPossible
+default Representation in UsualGroup = WeakSeparation
+value ControlRepresentation in UsualGroup = Button > Picture
+default ScrollOnCompress = false
+default RowSelectionMode in Table = Cell
+rename HorizontalLinesBWA in Table > HorizontalLines
+rename VerticalLinesBWA in Table > VerticalLines
+absent UseAlternationRowColorBWA in Table = false
+insert UseAlternationRowColor in Table = true unless UseAlternationRowColorBWA before DataPath|ContextMenu|AutoCommandBar|ExtendedTooltip|SearchStringAddition|ViewStatusAddition|SearchControlAddition|ChildItems|EnableStartDrag|FileDragMode|Events|AutoRefresh|AutoRefreshPeriod|Period|ChoiceFoldersAndItems|RestoreCurrentRow|TopLevelParent|ShowRoot|AllowRootChoice|UpdateOnDataChange|AllowGettingCurrentRowURL|RowPictureDataPath|InitialTreeView|UserSettingsGroup|SearchStringLocation|ViewStatusLocation|EnableDrag|SearchControlLocation|AutoInsertNewRow|Title|CommandSet|RowsPicture|RowFilter|InitialListView|SearchOnInput|HorizontalStretch|BorderColor|CurrentRowUse|VerticalStretch|ToolTipRepresentation|AutoAddIncomplete|AutoMarkIncomplete|Output|ToolTip|TitleTextColor|TitleFont|ViewMode|SettingsNamedItemDetailedRepresentation|RefreshRequest|BackColor|GroupHorizontalAlign
+insert CheckBoxType in CheckBoxField = Auto unless ThreeState before EqualItemsWidth|ContextMenu|ExtendedTooltip|Events
+
+# Configuration.xml
+value ConfigurationExtensionCompatibilityMode = Version8_5_1 > Version8_3_27
+absent AuxiliaryReportForm = ""
+absent AuxiliaryReportVariantForm = ""
+absent AuxiliaryReportSettingsForm = ""
+absent AuxiliaryDynamicListSettingsForm = ""
+absent AuxiliaryDataHistoryChangeHistoryForm = ""
+absent AuxiliaryDataHistoryVersionDataForm = ""
+absent AuxiliaryDataHistoryVersionDifferencesForm = ""
+absent AuxiliaryCollaborationSystemUsersChoiceForm = ""
+absent MainClientApplicationWindowInterfaceVariant = NavigationLeft
+absent ClientApplicationTheme = Auto
+absent ClientApplicationWindowsOpenVariant = OpenDataInDialogs
+absent Caption in Configuration/Properties = ""
+absent ShortCaption in Configuration/Properties = ""
+absent Version85InterfaceMigrationMode = DontUse

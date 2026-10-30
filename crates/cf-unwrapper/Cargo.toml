@@ -1,0 +1,10 @@
+[package]
+name = "cf-unwrapper"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+repository.workspace = true
+description = "Standalone 1C container and XML format engine"
+
+[dependencies]
+flate2 = "1.1"

@@ -1,0 +1,53 @@
+# Embedded asset inventory
+
+Exact reviewed current bytes (SHA-256). No other binary, XML fixture or template is allowlisted.
+
+| File | Bytes | SHA-256 |
+| --- | ---: | --- |
+| `src/xml/imp/part0/part0.cf` | 4953 | `40380b32a85ee6773856b80f950d19fa7cd3afd4c78a83148969946b4a57df2e` |
+| `src/xml/new/AccumulationRegister.xml` | 5620 | `c2f3be6fc73239cf72b1d3ab8b20ac368576573f9e17fcb39c344122ee034765` |
+| `src/xml/new/Catalog.xml` | 8621 | `663f752f51b001c0d5e6503b2ec5369e18aabd2bff57734629ed0dfa67c7ca72` |
+| `src/xml/new/CatalogCopy.xml` | 19099 | `60ebf0f25ed251e4b1c53b80f93eb24d09b0afd2d312945ca929e47ef28d3c74` |
+| `src/xml/new/ChartOfCharacteristicTypes.xml` | 5272 | `d5cc32bda5576a4be0af8396de0a186f40e8339b12c943114c65ea62f61908fe` |
+| `src/xml/new/CommandModule.bsl` | 768 | `b1d0190acc614934e60b1e9c6934ff5792d58950d5d43cc3948d1ffb32c94a4f` |
+| `src/xml/new/CommonModule.xml` | 1521 | `7a0fbbfeaf5af667eee8487af32db62faa94e9801158f2f42910f0d2528ae179` |
+| `src/xml/new/Constant.xml` | 3083 | `b09f2bd0e47e2f6d8ceb078f6de8162ae7458ecfb91098988f0efd140fe5a784` |
+| `src/xml/new/DataProcessor.xml` | 1908 | `3a87c58cc8bc179d9be30a3c9687c30fee89801b6952f820f1ec51772ec7f792` |
+| `src/xml/new/designer/c1-item-2cols.xml` | 7821 | `b5062883ba3b44bca070f945f3a66339e33a37839a9989aa6d448c5b31396bd2` |
+| `src/xml/new/designer/c1-item-elements.xml` | 9183 | `7ed3bf494b6d1b7e2ff68e6f03d68da7ba00fb070d50d9d333aef0e04af51ebd` |
+| `src/xml/new/designer/c1-item.xml` | 5936 | `15749d935919f95aed8798c105d3c542f82f62e864aa21e9117f466dfa0f1997` |
+| `src/xml/new/designer/c1-list.xml` | 6457 | `bed31d6545fbe1bb418a77833cb8f29fdc2aeec3199f3be978d31dde7a072d7d` |
+| `src/xml/new/designer/c2-item-4cols.xml` | 15405 | `be78d78b1461b374443e3293da20ec86ae194f011e7f25f9d39d72ac5bfd37e3` |
+| `src/xml/new/designer/c2-item-layout.xml` | 7961 | `ed0947f8d5e2d27a4d6eb66f0d20e87bb9419ffe7da2b20c6c99411f566bc6b6` |
+| `src/xml/new/designer/c2-item-props.xml` | 1661 | `16bf9cb1e3bdbbff0d78a97c4cb07ca3a4887c6d54dcc15daf02c2a72e418197` |
+| `src/xml/new/designer/c2-item.xml` | 12957 | `207764baf0c431b6162fd3ec407b493f083c9224f6c5a30717b28cec5c22bb39` |
+| `src/xml/new/designer/c3-custom.xml` | 1076 | `e9076f98aca740133ec597fe753ab3de73a11c24c975694adb348cdce89f1af3` |
+| `src/xml/new/designer/c3-folder.xml` | 2996 | `c8f3ed787bd5d653a9250f5ffa94436d911c455766d599d042921868a1fb77cf` |
+| `src/xml/new/designer/c3-folderchoice.xml` | 6881 | `980cfcad034f865f3b67523b74991bb24d40e4850ab194043950f6fb1a9df82c` |
+| `src/xml/new/designer/c3-item.xml` | 2994 | `16a1cd31ef4a952af619ccf596b0cf144029a03318b35347294e1b3c54a6717f` |
+| `src/xml/new/designer/d1-choice.xml` | 6498 | `b8fb9b6a417432459ceb06beb9410a30b41cd8789ab0b21aa5e87ff43ce927c9` |
+| `src/xml/new/designer/d1-item-layout.xml` | 2632 | `eec8f90c94ed49c144bb27d4874602f7b44a77d57adae00549a82084731dac08` |
+| `src/xml/new/designer/d1-item.xml` | 2666 | `56232991d44eb03215c4e8ebe9cc0b275163d2a0dac373fffbaaf478f4007e46` |
+| `src/xml/new/Document.xml` | 5569 | `0b960b00ab1898465702168d7bee5997fda2e0566b7e868769c9a600e6e5c95f` |
+| `src/xml/new/Enum.xml` | 2557 | `e46c8fb3f2ccdca8e6c51a581002ee594be46cb9303269569f1d0b27e6c5f0f7` |
+| `src/xml/new/forms/CatalogChoice.xml` | 6542 | `e73234e20abfbb51d328cfa533fbef98b064f440edea312e987e01285765d84e` |
+| `src/xml/new/forms/CatalogChoiceTree.xml` | 6534 | `d586ae2b0a2c109694580d1dee78158ed86fd626d749c0f263579d0e88f4f65a` |
+| `src/xml/new/forms/CatalogFolderChoice.xml` | 6881 | `980cfcad034f865f3b67523b74991bb24d40e4850ab194043950f6fb1a9df82c` |
+| `src/xml/new/forms/CatalogList.xml` | 6457 | `b755b40d2bce5ed2890e1b2dcf0a54a6e2509e9ac5815b3a81b90fd81d6120f1` |
+| `src/xml/new/forms/CatalogListTree.xml` | 6449 | `93f74cad3a294a63f2ae99222d18ce3eafa2bc354e035207994c71e169c08eb3` |
+| `src/xml/new/forms/DocumentChoice.xml` | 6498 | `b8fb9b6a417432459ceb06beb9410a30b41cd8789ab0b21aa5e87ff43ce927c9` |
+| `src/xml/new/forms/DocumentList.xml` | 6413 | `39e70a0073cee130cb8a690f65c6fda34547e38a8a59046f15d3e6f6ed851153` |
+| `src/xml/new/forms/Form.xml` | 1661 | `4d648e2bf24f47eff4914338930105470b2a4b42404cede54a9c92022932ad90` |
+| `src/xml/new/InformationRegister.xml` | 4112 | `09714edac8c1766782441ae9056634763f0960b73b7e5b037a4a5323ab1a76cd` |
+| `src/xml/new/Report.xml` | 2045 | `8c032d22a89c45418c9549b3ba69885e18a49f9d9a885147af9acf93c6a6ba06` |
+| `src/xml/new/Subsystem.xml` | 1389 | `2a61eb1955be2a5521c7abdfa36e27fb1ef3aa114f5dbac10b78fef870b59ec1` |
+| `src/xml/new/TabularSectionLineNumber.xml` | 1131 | `e0a04d125bace1422e78c732c0d94fa778c010bb8d6fefd1feba6bdf3a823aa1` |
+| `src/xml/new/Template.xml` | 1315 | `6641be23d4817ba0f43a0819b0e4ad2acfa23076d9ad9f37d357d8e2c36bd00f` |
+| `src/xml/new/templates/DataCompositionAppearanceTemplate.bin` | 601 | `dfe19fdcd3f48b812763ac77956c153fc4733fb586fabf2fc7939e167740e302` |
+| `src/xml/new/templates/DataCompositionSchema.bin` | 1467 | `df1a2ea185d66dd486d29fa54f8e92dc48ca6ea194ba3d131d2932fb2591f0d8` |
+| `src/xml/new/templates/GeographicalSchema.bin` | 517 | `9e58d6e26f05c43054a6ddbac5f0fbcdd63d534fdcff33c6b338aee04cfde23f` |
+| `src/xml/new/templates/GraphicalSchema.bin` | 132 | `57553b93c47d7c9ae8e625c2efeff61099d1188f8009affcfab48c37cb2aaf64` |
+| `src/xml/new/templates/TextDocument.bin` | 3 | `f1945cd6c19e56b3c1c78943ef5ec18116907a4ca1efc40a57d48ab1db7adfc5` |
+| `formats/2.17.txt` | 760 | `e7c500fb20b0d1f92319ea0f26183d30c78b2862984ef6cd103aa851484b9279` |
+| `formats/2.20.txt` | 4684 | `2fc4a5525cda998fad958d7f29a97103f5ab9bccaa104a24c329b3cd695ec272` |
+| `formats/compat-8.3.16.txt` | 806 | `fd33a9736fff69ac292c306842ddd3138a8cc90a6b31438f0199f4a8366c24b5` |

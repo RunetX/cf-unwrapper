@@ -1,0 +1,7 @@
+# Embedded format payloads are audited and consumed byte-for-byte.
+# Keep their original bytes regardless of core.autocrlf/core.eol.
+/crates/cf-unwrapper/src/xml/**/*.xml -text
+/crates/cf-unwrapper/src/xml/**/*.bsl -text
+/crates/cf-unwrapper/src/xml/new/templates/** -text
+/crates/cf-unwrapper/src/xml/imp/part0/** -text
+/crates/cf-unwrapper/formats/** -text

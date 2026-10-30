@@ -1,0 +1,63 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<MetaDataObject xmlns="http://v8.1c.ru/8.3/MDClasses" xmlns:app="http://v8.1c.ru/8.2/managed-application/core" xmlns:cfg="http://v8.1c.ru/8.1/data/enterprise/current-config" xmlns:cmi="http://v8.1c.ru/8.2/managed-application/cmi" xmlns:ent="http://v8.1c.ru/8.1/data/enterprise" xmlns:lf="http://v8.1c.ru/8.2/managed-application/logform" xmlns:pal="http://v8.1c.ru/8.1/data/ui/colors/palette" xmlns:style="http://v8.1c.ru/8.1/data/ui/style" xmlns:sys="http://v8.1c.ru/8.1/data/ui/fonts/system" xmlns:v8="http://v8.1c.ru/8.1/data/core" xmlns:v8ui="http://v8.1c.ru/8.1/data/ui" xmlns:web="http://v8.1c.ru/8.1/data/ui/colors/web" xmlns:win="http://v8.1c.ru/8.1/data/ui/colors/windows" xmlns:xen="http://v8.1c.ru/8.3/xcf/enums" xmlns:xpr="http://v8.1c.ru/8.3/xcf/predef" xmlns:xr="http://v8.1c.ru/8.3/xcf/readable" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="2.21">
+	<InformationRegister uuid="8b5340d6-a1cb-4dcd-bfb0-5a25a7cb5db6">
+		<InternalInfo>
+			<xr:GeneratedType name="InformationRegisterRecord.РегистрСведений1" category="Record">
+				<xr:TypeId>99e31680-952e-4e86-859f-2ef63cfb7375</xr:TypeId>
+				<xr:ValueId>ceb1c676-7760-4a7a-b4b3-796c4e9f2a96</xr:ValueId>
+			</xr:GeneratedType>
+			<xr:GeneratedType name="InformationRegisterManager.РегистрСведений1" category="Manager">
+				<xr:TypeId>fb027a40-a387-40aa-bc5e-d3b758a03e4c</xr:TypeId>
+				<xr:ValueId>6f92fe81-b62e-4ddc-9224-62829ecb94dd</xr:ValueId>
+			</xr:GeneratedType>
+			<xr:GeneratedType name="InformationRegisterSelection.РегистрСведений1" category="Selection">
+				<xr:TypeId>dab1f042-9752-4e3a-8adf-b882581eb399</xr:TypeId>
+				<xr:ValueId>d583dcd7-584e-4a11-aa78-87bc534012bb</xr:ValueId>
+			</xr:GeneratedType>
+			<xr:GeneratedType name="InformationRegisterList.РегистрСведений1" category="List">
+				<xr:TypeId>6c910f2b-cc16-4c1b-88d9-a2177109cd46</xr:TypeId>
+				<xr:ValueId>e649b6f0-a19b-447d-a472-c1fab660c6c1</xr:ValueId>
+			</xr:GeneratedType>
+			<xr:GeneratedType name="InformationRegisterRecordSet.РегистрСведений1" category="RecordSet">
+				<xr:TypeId>fe0d0f75-6f26-4cd5-a840-63a2b24d6a40</xr:TypeId>
+				<xr:ValueId>1f0167ce-88cc-4033-ae89-9c1a026889a4</xr:ValueId>
+			</xr:GeneratedType>
+			<xr:GeneratedType name="InformationRegisterRecordKey.РегистрСведений1" category="RecordKey">
+				<xr:TypeId>a89767fa-c7cd-45b7-b3f1-4804d4717f15</xr:TypeId>
+				<xr:ValueId>27e568fa-6d8e-4975-9684-c6ca0a88394f</xr:ValueId>
+			</xr:GeneratedType>
+			<xr:GeneratedType name="InformationRegisterRecordManager.РегистрСведений1" category="RecordManager">
+				<xr:TypeId>fd1bd7e5-e9bd-4485-ac4d-a925628757aa</xr:TypeId>
+				<xr:ValueId>20019008-e5d9-4ec7-b42d-5ac382266700</xr:ValueId>
+			</xr:GeneratedType>
+		</InternalInfo>
+		<Properties>
+			<Name>РегистрСведений1</Name>
+			<Synonym/>
+			<Comment/>
+			<UseStandardCommands>true</UseStandardCommands>
+			<EditType>InDialog</EditType>
+			<DefaultRecordForm/>
+			<DefaultListForm/>
+			<AuxiliaryRecordForm/>
+			<AuxiliaryListForm/>
+			<InformationRegisterPeriodicity>Nonperiodical</InformationRegisterPeriodicity>
+			<WriteMode>Independent</WriteMode>
+			<MainFilterOnPeriod>false</MainFilterOnPeriod>
+			<IncludeHelpInContents>false</IncludeHelpInContents>
+			<DataLockControlMode>Managed</DataLockControlMode>
+			<FullTextSearch>DontUse</FullTextSearch>
+			<EnableTotalsSliceFirst>false</EnableTotalsSliceFirst>
+			<EnableTotalsSliceLast>false</EnableTotalsSliceLast>
+			<RecordPresentation/>
+			<ExtendedRecordPresentation/>
+			<ListPresentation/>
+			<ExtendedListPresentation/>
+			<Explanation/>
+			<DataHistory>DontUse</DataHistory>
+			<UpdateDataHistoryImmediatelyAfterWrite>false</UpdateDataHistoryImmediatelyAfterWrite>
+			<ExecuteAfterWriteDataHistoryVersionProcessing>false</ExecuteAfterWriteDataHistoryVersionProcessing>
+		</Properties>
+		<ChildObjects/>
+	</InformationRegister>
+</MetaDataObject>

@@ -1,0 +1,7 @@
+/target/
+/local/
+*.cfkit-tmp
+*.cf_unwrapper-tmp
+
+__pycache__/
+*.pyc
