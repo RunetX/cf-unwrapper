@@ -160,6 +160,50 @@ const TYPE_SET_OWNERS: &[(&str, &str, u8)] = &[
     ("ac606d60-0209-4159-8e4c-794bc091ce38", "e3687481-0a87-462c-a166-9f34594f9bba", 0), // ChartOfAccountsRef
 ];
 
+fn external_temp_name(uuid: &str) -> String {
+    use std::sync::atomic::{AtomicU64, Ordering};
+    static NEXT: AtomicU64 = AtomicU64::new(0);
+    // The format GUID can repeat within one clock second. Never reuse a path:
+    // on Windows a deleted directory may still be pending deletion (os error 5).
+    let sequence = NEXT.fetch_add(1, Ordering::Relaxed);
+    format!("cfkit-new-{}-{sequence}-{uuid}", std::process::id())
+}
+
+#[cfg(test)]
+mod temp_directory_tests {
+    use super::external_temp_name;
+    use std::collections::HashSet;
+
+    #[test]
+    fn temporary_names_stay_unique_with_identical_uuid() {
+        // A fixed GUID models calls seeded by the same one-second clock tick.
+        let barrier = std::sync::Barrier::new(32);
+        let names = std::thread::scope(|scope| {
+            let workers: Vec<_> = (0..32)
+                .map(|_| {
+                    let barrier = &barrier;
+                    scope.spawn(move || {
+                        barrier.wait();
+                        (0..4)
+                            .map(|_| external_temp_name("fixed-timer-guid"))
+                            .collect::<Vec<_>>()
+                    })
+                })
+                .collect();
+            workers
+                .into_iter()
+                .flat_map(|worker| worker.join().unwrap())
+                .collect::<Vec<_>>()
+        });
+        assert_eq!(names.len(), 128);
+        assert_eq!(
+            names.into_iter().collect::<HashSet<_>>().len(),
+            128,
+            "simultaneous calls must never reuse a temporary directory name"
+        );
+    }
+}
+
 /// Новая внешняя обработка `name` без реквизитов и форм: описание с новыми uuid собирается загрузкой.
 pub fn new_external(name: &str) -> Result<Vec<u8>, String> {
     // Validate before UUID generation or filesystem access; names become XML and paths.
@@ -205,11 +249,11 @@ pub fn new_external(name: &str) -> Result<Vec<u8>, String> {
     );
     // загрузка читает выгрузку с диска: описание — во временный каталог
     let dir = loop {
-        let candidate = std::env::temp_dir().join(format!("cfkit-new-{}", g()));
+        let candidate = std::env::temp_dir().join(external_temp_name(&g()));
         match std::fs::create_dir(&candidate) {
             Ok(()) => break candidate,
             Err(e) if e.kind() == std::io::ErrorKind::AlreadyExists => continue,
-            Err(e) => return Err(e.to_string()),
+            Err(e) => return Err(format!("reserve external temp directory {}: {e}", candidate.display())),
         }
     };
     let path = dir.join(format!("{name}.xml"));

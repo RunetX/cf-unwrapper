@@ -363,7 +363,7 @@
     },
     {
       "path": "crates/cf-unwrapper/src/xml/imp/mod.rs",
-      "sha256": "f2cd9cbafa045647160ada8a1a38c108f983558c4c1b3ac912a2af3ef6912d25",
+      "sha256": "87bfb3aec53574360a6e0dec76f1cae728a2c06f20d91a69b82b94a9de3e710e",
       "source_path": "src/xml/imp/mod.rs",
       "source_sha256": "8ffbc41d2879cb29c7bd61874b800d04b4fa4a230877a748b8ba1c9d5fba13d9"
     },
