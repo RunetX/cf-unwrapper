@@ -1,69 +1,198 @@
-# Развёртка / cf-unwrapper
+<div align="center">
 
-Standalone Rust engine for 1C container files and XML exports. The workspace has a format library (`cf-unwrapper`, imported as `cf_unwrapper`) and a file CLI (`cf-unwrapper-cli`, binary `cf-unwrapper`). It requires Rust stable and no installed 1C platform. The library's only external runtime dependency is flate2; the CLI directly depends only on that library.
+# Развертка
 
-```sh
-cargo build --workspace --locked
-cargo run -p cf-unwrapper-cli -- --help
-python tools/check.py
+### Файл конфигурации ↔ XML. Из командной строки и вашего кода.
+
+**cf-unwrapper** — открытый движок форматов 1С на Rust.
+
+[Быстрый старт](#быстрый-старт) · [Результаты](#результаты) · [Команды](#команды) · [Участие](CONTRIBUTING.md)
+
+![Rust stable](https://img.shields.io/badge/Rust-stable-dea584?logo=rust)
+![XML formats](https://img.shields.io/badge/XML-2.17%20%7C%202.20%20%7C%202.21-2563eb)
+[![MIT](https://img.shields.io/badge/license-MIT-22c55e)](LICENSE)
+
+[![Инфостарт — статья о Развертке](docs/images/infostart-logo.svg)](https://infostart.ru/1c/articles/2833995/)
+
+**[Развертка: закрываем расхождения и открываем исходники](https://infostart.ru/1c/articles/2833995/)**
+
+Результаты ERP и ЗУП, методика проверки и развитие проекта — в статье на Инфостарте.
+
+</div>
+
+![Развертка: открытый движок и проверенные конфигурации](docs/images/cover.png)
+
+Развертка читает контейнеры `.cf`, `.cfe`, `.epf`, выгружает метаданные в XML и собирает файл из выгрузки. Установка платформы и создание информационной базы для этих операций не требуются.
+
+Используйте CLI для выгрузок, скриптов и проверок или подключайте библиотеку к своему инструменту. Это самостоятельный проект, выделенный из constructor / cfkit.
+
+```text
+                          Развертка
+                   ┌──────────────────┐
+ .cf / .epf ───────►│ export    import │◄────── XML + BSL + макеты
+            ◄──────│                  │──────►
+                   │ unpack      pack │
+ контейнер ────────►│                  │◄────── записи + .cfkit
+            ◄──────└──────────────────┘──────►
 ```
 
+## Возможности
+
+| Задача | Что есть |
+| --- | --- |
+| Изучить файл | Информация о конфигурации, дерево метаданных, записи контейнера, текст модулей, поиск |
+| Работать с XML | Выгрузка и загрузка конфигураций и внешних обработок, отдельная выгрузка форм |
+| Выбрать формат | XML 2.21; понижение до 2.20 и 2.17 по встроенным таблицам |
+| Работать с контейнером | Распаковка и сборка, W32/W64, составные контейнеры, временные метки |
+| Проверить результат | Проверка контейнера, сравнение XML-деревьев и записей после загрузки |
+| Создать обработку | Минимальная внешняя обработка командой `new-epf` |
+
+Форматная часть включает управляемые формы, MXL, графические схемы, карты маршрутов, командный интерфейс, регистры и разбор запросов для загрузки динамических списков. Поддержка контейнера `.cfe` сама по себе не означает полноту XML-преобразований любого расширения.
+
+## Быстрый старт
+
+Нужны Git и **Rust stable** с Cargo:
+
 ```sh
-cf-unwrapper info input.cf
-cf-unwrapper tree input.epf --all
-cf-unwrapper ls input.cfe
-cf-unwrapper cat input.cf root
-cf-unwrapper module input.cf ENTRY
-cf-unwrapper search input.cf text
-cf-unwrapper verify input.cf
-cf-unwrapper unpack input.cf unpacked
-cf-unwrapper pack unpacked rebuilt.cf
-cf-unwrapper export input.cf xml
-cf-unwrapper export input.cf xml-old --format 2.20
-cf-unwrapper export input.cf xml-older --format 2.17
-cf-unwrapper export-forms input.cf forms
-cf-unwrapper import xml rebuilt.cf
-cf-unwrapper new-epf SyntheticProcessor fresh.epf
-cf-unwrapper export fresh.epf external
-cf-unwrapper import external/SyntheticProcessor.xml rebuilt.epf
-cf-unwrapper unpack rebuilt.epf external-unpacked
-cf-unwrapper xml-down xml xml-old --format 2.17
-cf-unwrapper xml-diff xml reference 3
-cf-unwrapper import-check external/SyntheticProcessor.xml external-unpacked - 3
+git clone https://github.com/RunetX/cf-unwrapper.git
+cd cf-unwrapper
+cargo build --release --locked --bin cf-unwrapper
 ```
 
-`import-check <xml> <records-dir> [selection|-] [N]` compares imported XML with the directory containing the unpacked metadata records themselves. A flat `.epf` normally uses the unpack root, as in the external-processing example above. A multipart `.cf` commonly uses `unpacked/part1`, but the part number is not universal: inspect the root and per-part `.cfkit` manifests and `cf-unwrapper ls input.cf` to identify the metadata part. Pass that part directory, not the multipart unpack root; for a confirmed `part1` layout, use `cf-unwrapper import-check xml unpacked/part1 - 3`.
+Бинарник: `target/release/cf-unwrapper` (Windows: `target/release/cf-unwrapper.exe`). Добавьте каталог в `PATH` или вызывайте файл по полному пути. Далее предполагается, что команда доступна в `PATH`.
 
-The `differ`, `extra` and `refused` counts are comparison results; inspect them even when the command exits successfully. Import can normalize records, so comparing original container records against imported XML can report differences (including a platform generator version change). This alone does not prove XML roundtrip loss. To check the normalized representation, import the XML, export the rebuilt container, and compare those XML trees with `xml-diff`; unpack the rebuilt container for a matching `import-check` baseline.
+### Выгрузить и собрать конфигурацию
 
-`export` and `export-forms` accept an optional UTF-8 selection file (one object path per line). `import-check` accepts a selection file or `-` for all objects. Native XML is 2.21; `export --format 2.21` explicitly requests it. Downgrades support embedded 2.20 and chained 2.17 tables. Files under `formats/<version>.txt` beside the executable override the embedded tables; the packaged tables live in `crates/cf-unwrapper/formats/`. Invalid arguments, unreadable files, unsupported formats, and refusals from `import` return nonzero with stderr diagnostics. `import` refuses to replace or create its result when any input file is refused.
+```sh
+cf-unwrapper export 1Cv8.cf src
+cf-unwrapper import src rebuilt.cf
+cf-unwrapper verify rebuilt.cf
+```
+
+### Выбрать версию XML
+
+```sh
+cf-unwrapper export 1Cv8.cf src-2.20 --format 2.20
+cf-unwrapper export 1Cv8.cf src-2.17 --format 2.17
+```
+
+Нативный формат — 2.21. Явный `--format 2.21` также поддерживается. Соответствия проверенных версий платформы: 8.5 — 2.21, 8.3.27 — 2.20, 8.3.24 — 2.17. Выбор XML-формата не меняет режим совместимости конфигурации.
+
+### Попробовать без своей конфигурации
+
+```sh
+cf-unwrapper new-epf DemoProcessor demo.epf
+cf-unwrapper export demo.epf demo-src
+cf-unwrapper import demo-src/DemoProcessor.xml demo-rebuilt.epf
+cf-unwrapper export demo-rebuilt.epf demo-again
+cf-unwrapper xml-diff demo-again demo-src 3
+```
+
+## Результаты
+
+Регрессия исходного движка **до выделения** в этот репозиторий, 30 октября 2026 года. Эталоны — результаты платформы 8.5.1.1529. Сами конфигурации в репозиторий не включены.
+
+| Конфигурация | Выгрузка: совпало файлов | Загрузка: совпало записей | Отказов загрузки |
+| --- | ---: | ---: | ---: |
+| Клиент ЭДО 2.9 | 21 758 / 21 758 | 17 626 / 17 626 | 0 |
+| Бухгалтерия предприятия 3.0.171.23 | 90 385 / 90 385 | 77 265 / 77 266¹ | 0 |
+| Бухгалтерия предприятия 3.0.107.34 | 68 742 / 68 742 | 58 637 / 58 637 | 0 |
+| Зарплата и управление персоналом 3.1.37.54 | **40 560 / 40 560** | **33 966 / 33 966** | **0** |
+| ERP 2.5.22.186 | **121 712 / 121 712** | **102 375 / 102 375** | **0** |
+
+¹ Один макет БП различается из-за зависимого от адресов картинок в памяти объединения оформлений платформой. Это известная граница побайтовой сверки.
+
+Для ERP и ЗУП проверен и круг через платформу: собранный движком файл загружен в базу и выгружен в XML. Результат совпал с таким же кругом по файлу, собранному самой платформой: **121 712 / 121 712** и **40 560 / 40 560** файлов. С исходным XML оба варианта круга имеют одинаковые отличия — 16 файлов ERP и 7 файлов ЗУП.
+
+Это результаты конкретных конфигураций и версий. Служебная запись `versions` со случайными GUID из сверки записей исключена. Таблица не означает побайтового равенства всего `.cf` или поддержки всех возможностей платформы. После выделения самостоятельный workspace проверялся синтетическими тестами; повторный прогон этих пяти конфигураций в новом репозитории пока не проводился.
+
+## Команды
+
+| Команда | Назначение |
+| --- | --- |
+| `info <file>` | Информация о файле и группах метаданных |
+| `tree <file> [--all]` | Дерево метаданных |
+| `ls <file>` | Записи всех частей контейнера |
+| `cat <file> <entry>` | Содержимое записи |
+| `module <file> <entry>` | Текст модуля |
+| `search <file> <text>` | Поиск текста |
+| `verify <file>` | Проверка контейнера |
+| `unpack <file> <directory>` | Распаковать записи |
+| `pack <directory> <file>` | Собрать контейнер из записей |
+| `export <file> <directory> [selection] [--format VERSION]` | Выгрузить XML: 2.21, 2.20 или 2.17 |
+| `export-forms <file> <directory> [selection]` | Выгрузить формы |
+| `import <directory-or-external.xml> <file>` | Собрать файл из XML |
+| `new-epf <name> <file.epf>` | Создать внешнюю обработку |
+| `xml-down <source> <destination> --format VERSION` | Понизить готовую XML-выгрузку до 2.20 или 2.17 |
+| `xml-diff <ours> <reference> [N]` | Сравнить XML-деревья, показать до N примеров |
+| `import-check <xml> <records-dir> [selection-or-dash] [N]` | Сравнить результат загрузки с записями эталона |
+
+Справка: `cf-unwrapper --help`. Запуск из workspace: `cargo run -p cf-unwrapper-cli -- --help`.
+
+`selection` — UTF-8-файл с путями объектов, по одному на строку. Для `import-check` значение `-` означает все объекты. Выбор части контейнера для `import-check` описан в [справочнике CLI и API](docs/cli-reference.md).
+
+### Как читать результаты
+
+`xml-diff` и `import-check` возвращают успешный код при выполненном сравнении, **даже если найдены различия**. В автоматизации проверяйте счетчики отчета: различия, лишние и недостающие файлы, отказы. Нулевой код сам по себе не означает совпадения.
+
+Ошибки аргументов, чтения, неподдерживаемого формата и отказы `import` дают ненулевой код. Если при загрузке отвергнут хотя бы один входной файл, `import` не создает и не заменяет результат. Выгрузка и понижение формата могут оставить успешно записанные файлы, если на другом объекте возник отказ.
+
+Загрузка может нормализовать внутренние записи. Для проверки загрузки эталоном служит файл, собранный платформой из того же XML. Для проверки XML-круга:
+
+```sh
+cf-unwrapper import src rebuilt.cf
+cf-unwrapper export rebuilt.cf src-again
+cf-unwrapper xml-diff src-again src 3
+```
+
+## Библиотека для ваших инструментов
+
+```text
+crates/
+├── cf-unwrapper/       библиотека, import: cf_unwrapper
+└── cf-unwrapper-cli/   CLI, бинарник: cf-unwrapper
+```
+
+Единственная прямая внешняя runtime-зависимость библиотеки — `flate2`; CLI напрямую зависит только от библиотеки.
 
 ```rust
 use cf_unwrapper::{meta::Config, xml};
 
 fn main() -> Result<(), String> {
-    let bytes = xml::imp::new_external("SyntheticProcessor")?;
+    let bytes = xml::imp::new_external("DemoProcessor")?;
     let config = Config::open(&bytes)?;
-    let output = std::path::Path::new("xml");
-    let report = xml::export(&config, output)?;
-    if !report.errors.is_empty() { return Err(format!("{:?}", report.errors)); }
-    let input = output.join("SyntheticProcessor.xml");
-    let imported = xml::imp::import(&input, None)?;
-    if !imported.refused.is_empty() { return Err(format!("{:?}", imported.refused)); }
-    let rebuilt = xml::imp::cf(&input, &imported)?;
-    let _reopened = Config::open(&rebuilt)?;
+    println!("{}", config.root.header.name);
     Ok(())
 }
 ```
 
-Container APIs preserve entries, timestamps and W32/W64 multipart layout. Unpack manifests retain the existing `.cfkit` format. A single W32 stream unpacks flat; a single W64 stream uses `part0/` and `parts\t1\tW64` in the root `.cfkit`, so repacking keeps its width. The manifest and format diagnostics retain legacy names for compatibility.
+Публичные модули: `container`, `brace`, `meta`, `unpack`, `xml` и вспомогательный разборщик запросов. Модели форм находятся в `xml::form`. Детали — в [README библиотеки](crates/cf-unwrapper/README.md) и [справочнике CLI и API](docs/cli-reference.md). Документация API: `cargo doc -p cf-unwrapper --no-deps --open`.
 
-Coverage includes managed forms, MXL, flowcharts, command interfaces, registers, query parsing needed by dynamic-list import, and the remaining extracted XML serializers. This is a reverse engineered implementation with explicit unsupported cases, not a guarantee for every platform version or every configuration. Synthetic checks cover only the stated behaviors; no proprietary corpus is distributed or silently skipped in CI. `xml-diff` and `import-check` are comparison reports; their exit status signals an execution error, not the presence of differences. Export/downconversion may leave successfully written files when another file is refused.
+## Помогите проверить следующую конфигурацию
 
-No platform runner, GUI, debugger, BSL server or constructor integration is included. Static captions work without platform resources. Advanced library editing primitives remain because they belong to the XML representation; there are no model editing CLI commands.
+ERP и ЗУП закрыли большой набор случаев, но следующий пробел может оказаться в маленькой обработке. Нужны проверки других версий, минимальные примеры ошибок, тесты и улучшения документации. Знание Rust пригодится для кода; для проверки своей конфигурации оно не требуется.
 
-For a local corpus check, choose your own paths under ignored `local/`: run `unpack`, `export`, `import`, `verify` and `xml-diff` with those explicit paths. Compare the result with a trusted platform export locally. No paths, corpus files, dumps or reports should be committed. Such a run is optional and is separate from the deterministic CI tests.
+- **Проверили свою конфигурацию?** [Расскажите о результате](https://github.com/RunetX/cf-unwrapper/issues), укажите версии и счетчики сравнения.
+- **Нашли расхождение?** Приложите небольшой синтетический пример и команды воспроизведения.
+- **Хотите доработать движок?** Посмотрите [как внести вклад](CONTRIBUTING.md) и предложите изменение через pull request.
 
-Opt-in legacy diagnostics use explicit caller-selected paths: `CFKIT_IMPORT_DUMP`, `CFKIT_IMPORT_REFUSED`, `CFKIT_DP_DUMP`, `CFKIT_QP_DUMP`, and CLI `CFKIT_REFUSED`. `CFKIT_V59_TAILS` changes form diagnostics. Keep them unset for normal operation and checks; their output may contain your input data.
+Особенно полезны проверки расширений, внешних обработок, старых режимов совместимости и редких свойств форм. Не прикладывайте рабочие конфигурации, выгрузки или данные клиентов: ошибку нужно свести к примеру, которым вы вправе поделиться.
 
-See [extraction audit](docs/extraction-audit.md) for source selection, sanitized test data, embedded asset provenance and limitations. Source metadata declares MIT. Platform-derived default assets and the fixed CF seed are identified separately in that audit; a technical content review does not establish redistribution rights.
+## Разработка и проверки
+
+Нужны Rust stable с `rustfmt` и Python 3.11+:
+
+```sh
+cargo build --workspace --locked
+python tools/check.py
+```
+
+`check.py` проверяет аудит ресурсов, сохранность их байтов при Git checkout, форматирование нового кода, тесты workspace и реальную сборку пакета через `cargo package`. Проверки не требуют платформы или закрытых конфигураций. Workflow [Check](https://github.com/RunetX/cf-unwrapper/actions/workflows/check.yml) настроен на Windows и Linux.
+
+Локальные проверки своих конфигураций храните в игнорируемом `local/`, пути передавайте явно. Сверяйте результат с доверенной выгрузкой платформы. Такие проверки выполняются отдельно от синтетического CI.
+
+## Границы проекта и лицензия
+
+Это восстановленная реализация форматов с явно обозначенными неподдерживаемыми случаями. GUI, отладчик, BSL-сервер, запуск платформы и интеграция с constructor в этот репозиторий не входят. Форматные примитивы редактирования доступны в библиотеке; отдельных CLI-команд редактирования модели нет. Подписи метаданных используют статические значения и не требуют ресурсов платформы.
+
+Исходный код объявлен под [MIT](LICENSE). Происхождение встроенных ресурсов, включая платформенные seed/default templates, отдельно описано в [аудите переноса](docs/extraction-audit.md) и [инвентаризации ресурсов](docs/embedded-assets.md). Техническая проверка этих файлов не устанавливает права на распространение сторонних материалов.
