@@ -6,7 +6,7 @@
 
 **cf-unwrapper** — открытый движок форматов 1С на Rust.
 
-[Быстрый старт](#быстрый-старт) · [Результаты](#результаты) · [Команды](#команды) · [Участие](CONTRIBUTING.md)
+[Скачать для Windows](https://github.com/RunetX/cf-unwrapper/releases/latest/download/cf-unwrapper.exe) · [Быстрый старт](#быстрый-старт) · [Результаты](#результаты) · [Команды](#команды) · [Участие](CONTRIBUTING.md)
 
 ![Rust stable](https://img.shields.io/badge/Rust-stable-dea584?logo=rust)
 ![XML formats](https://img.shields.io/badge/XML-2.17%20%7C%202.20%20%7C%202.21-2563eb)
@@ -50,6 +50,20 @@
 Форматная часть включает управляемые формы, MXL, графические схемы, карты маршрутов, командный интерфейс, регистры и разбор запросов для загрузки динамических списков. Поддержка контейнера `.cfe` сама по себе не означает полноту XML-преобразований любого расширения.
 
 ## Быстрый старт
+
+### Готовая утилита для Windows x64
+
+**[Скачать cf-unwrapper.exe](https://github.com/RunetX/cf-unwrapper/releases/latest/download/cf-unwrapper.exe)** или [ZIP с инструкцией](https://github.com/RunetX/cf-unwrapper/releases/download/v0.1.0/cf-unwrapper-v0.1.0-windows-x86_64.zip). Rust и установка платформы не нужны. Контрольные суммы SHA-256 и описание версии — на [странице релиза](https://github.com/RunetX/cf-unwrapper/releases/latest).
+
+Это консольная программа: откройте PowerShell в каталоге скачанного файла и выполните:
+
+```powershell
+.\cf-unwrapper.exe --help
+.\cf-unwrapper.exe export .\1Cv8.cf .\src
+.\cf-unwrapper.exe import .\src .\rebuilt.cf
+```
+
+### Сборка из исходников
 
 Нужны Git и **Rust stable** с Cargo:
 
