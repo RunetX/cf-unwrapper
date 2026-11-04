@@ -438,11 +438,11 @@ impl F<'_> {
             a("0"),
             p.tri("HorizontalLinesBWA")?,
             p.tri("VerticalLinesBWA")?,
-            a("0"),
+            p.tok("HierarchyPanelLocation",&[("Auto",0),("None",1)],0)?,
             a("0"),
             s(""),
             s(""),
-            a("0"),
+            p.tok("InitialRowActivation",&[("Auto",0),("Activate",1),("NoActivate",2)],0)?,
             a("1"),
             panel(name, "ПанельДействийВыделенныхСтрок", "10"),
             a("0"),
@@ -767,7 +767,7 @@ impl F<'_> {
             a("1"),
             a("2"),
             a("2"),
-            a(if show_title { "2" } else { "0" }),
+            p.tri("ShowTitle")?,
         ]));
         v.extend(self.children(p.get("ChildItems"))?);
         v.extend(self.group_tail(e, &p)?);

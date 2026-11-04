@@ -757,7 +757,7 @@ impl F<'_> {
             p.tok("PictureLocation", super::platform::BUTTON_PICTURE_LOCATION, 0)?,
             importance(e)?,
             an(loc49),
-            a("1"),
+            p.b("CommandUniqueness","1")?,
             a("0"),
             a("0"),
             picture_none(),
@@ -967,7 +967,7 @@ impl F<'_> {
             an(if unset { 4 } else { g17 }),
             scroll_tail,
             a("0"),
-            a(if p.get("ShowTitle").map(boolean).transpose()? == Some(false) { "0" } else { "2" }),
+            p.tri("ShowTitle")?,
         ]));
         v.extend(self.children(p.get("ChildItems"))?);
         v.extend(self.group_tail(e, &p)?);
@@ -1055,7 +1055,7 @@ impl F<'_> {
             a("2"),
             a("0"),
             a("0"),
-            a(if show_title { "2" } else { "0" }),
+            p.tri("ShowTitle")?,
         ];
         v.push(l(sub));
         v.extend(self.children(p.get("ChildItems"))?);

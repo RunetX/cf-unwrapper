@@ -5,3 +5,4 @@
 /crates/cf-unwrapper/src/xml/new/templates/** -text
 /crates/cf-unwrapper/src/xml/imp/part0/** -text
 /crates/cf-unwrapper/formats/** -text
+/crates/cf-unwrapper/tests/fixtures/extension/**/*.xml -text

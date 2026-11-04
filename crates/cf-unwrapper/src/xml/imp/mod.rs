@@ -9,6 +9,7 @@ pub mod check;
 pub(crate) mod config;
 mod dcs;
 pub mod desc;
+pub(crate) mod extension;
 pub mod dom;
 pub(crate) mod ext;
 mod flowchart;
@@ -429,6 +430,10 @@ impl Ctx<'_> {
                 ("Template", "bin") => one(self.read(&rel).and_then(|b| payload::binary(&b)), "макет: двоичные данные"),
                 ("Template", "txt") => one(self.read(&rel).and_then(|b| payload::text(&b)), "макет: текст"),
                 ("Schedule", "xml") => one(self.xml(&rel, ext::schedule), "расписание"),
+                ("AdditionalIndexes","xml") => {
+                    let r=self.idx().map(|_|()).and_then(|_|self.xml(&rel,|d|super::indexes::import(d,self.index.as_deref().unwrap()))).map(Rec::Raw);
+                    one(r,"дополнительные индексы")
+                },
                 ("Style", "xml") => {
                     let r = self.idx().map(|_| ()).and_then(|_| {
                         let ix = self.index.as_deref().unwrap();
@@ -686,6 +691,9 @@ pub fn cf(dir: &Path, imp: &Import) -> Result<Vec<u8>, String> {
         return epf(dir, imp);
     }
     let conf = dom::parse(&String::from_utf8_lossy(&std::fs::read(dir.join("Configuration.xml")).map_err(|e| e.to_string())?))?;
+    if conf.req("Configuration")?.peek_child("Properties").is_some_and(|p|p.peek_child("ConfigurationExtensionPurpose").is_some()) {
+        return extension::cfe(&conf,imp);
+    }
     let root_id = conf.req("Configuration")?.req_attr("uuid")?.to_string();
     if !imp.recs.contains_key(&root_id) {
         return Err(format!("нет записи конфигурации {root_id}"));

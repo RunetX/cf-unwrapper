@@ -79,6 +79,9 @@ impl Index {
         let name = cobj.child("Properties").and_then(|p| p.child("Name")).and_then(|n| n.text().ok());
         x.root = (cobj.attr("uuid").unwrap_or_default().to_string(), name.unwrap_or_default());
         x.compat = cobj.peek_child("Properties").and_then(|p| p.peek_child("CompatibilityMode")).and_then(El::peek_text).and_then(|t| compat_of(&t));
+        if x.compat.is_none() {
+            x.compat = cobj.peek_child("Properties").and_then(|p| p.peek_child("ConfigurationExtensionPurpose").and_then(|_| p.peek_child("ConfigurationExtensionCompatibilityMode"))).and_then(El::peek_text).and_then(|t| compat_of(&t));
+        }
         let co = cobj.child("ChildObjects").ok_or("Configuration.xml: нет <ChildObjects>")?;
         for ch in co.elems() {
             let name = ch.text()?;
@@ -163,6 +166,14 @@ impl Index {
             for e in p.elems() {
                 if let Some(t) = e.peek_text() {
                     o.props.insert(e.name.clone(), t);
+                }
+            }
+            // The XML of an adopted catalog omits inherited properties. These
+            // are the hidden defaults written when the platform imports that
+            // XML (verified with the synthetic 8.3.16 extension).
+            if class=="Catalog" && o.props.get("ObjectBelonging").is_some_and(|v|v=="Adopted") {
+                for (key,value) in [("CodeLength","9"),("DescriptionLength","25"),("CodeType","String"),("Hierarchical","false")] {
+                    o.props.entry(key.into()).or_insert_with(||value.into());
                 }
             }
             o.owner_list = p.child("Owners").into_iter().flat_map(|w| w.elems()).filter_map(|e| e.text().ok()).collect();

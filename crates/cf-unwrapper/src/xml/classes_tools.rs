@@ -758,8 +758,7 @@ fn compat(w: &mut W, tag: &str, n: &Node, i: usize) {
 
 /// Режим совместимости конфигурации кодом записи (`80316`, у старых — малые коды); `None` — не конфигурация.
 pub fn compat_mode(cfg: &Config) -> Option<u32> {
-    let rid = cfg.entry_text("root")?.split(',').nth(1)?.trim().to_string();
-    let root = crate::brace::Doc::parse(&cfg.entry_text(&rid)?).ok()?.roots.into_iter().next()?;
+    let root = crate::brace::Doc::parse(&cfg.entry_text(&cfg.root_id)?).ok()?.roots.into_iter().next()?;
     atom(root.at(&[3, 1, 1])?, &[26]).parse().ok()
 }
 
@@ -934,7 +933,7 @@ fn collection_ids<'a>(n: &'a Node, guid: &str) -> Option<Vec<&'a str>> {
 
 /// Configuration.xml по корневой записи.
 pub fn configuration(cfg: &Config, x: &Index) -> Option<Vec<u8>> {
-    let rid = cfg.entry_text("root")?.split(',').nth(1)?.trim().to_string();
+    let rid = &cfg.root_id;
     let root = crate::brace::Doc::parse(&cfg.entry_text(&rid)?).ok()?.roots.into_iter().next()?;
     let p = root.at(&[3, 1, 1])?;
     let mut w = W::metadata();

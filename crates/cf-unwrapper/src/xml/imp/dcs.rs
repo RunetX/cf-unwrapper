@@ -423,9 +423,10 @@ impl Fix<'_> {
         if let Some(ti) = readable {
             e.attrs[ti].val = Val::Q(Q { ns: V8UI.into(), local: "Picture".into() });
             let kids = std::mem::take(&mut e.kids);
+            let opaque=kids.iter().any(|e|e.ns==READABLE && e.name=="LoadTransparent" && e.text.as_deref()==Some("false"));
             match kids.as_slice() {
                 [] => {}
-                [r, lt] if r.ns == READABLE && r.name == "Ref" && lt.ns == READABLE && lt.name == "LoadTransparent" && lt.text.as_deref() == Some("true") => {
+                [r, lt] if r.ns == READABLE && r.name == "Ref" && lt.ns == READABLE && lt.name == "LoadTransparent" && matches!(lt.text.as_deref(),Some("true"|"false")) => {
                     let t = r.text.clone().unwrap_or_default();
                     // ссылка по uuid (картинки нет в конфигурации, 8.5: ПраваРолей и др.) — в записи как есть
                     let val = if t.strip_prefix("0:").is_some_and(crate::brace::is_guid) {
@@ -436,7 +437,7 @@ impl Fix<'_> {
                     };
                     e.attrs.push(Attr { ns: String::new(), local: "ref".into(), val });
                 }
-                [r, lt] if r.ns == READABLE && r.name == "Abs" && r.text.as_deref().is_some_and(|t| t.starts_with("value.")) && lt.ns == READABLE && lt.name == "LoadTransparent" && lt.text.as_deref() == Some("true") => {
+                [r, lt] if r.ns == READABLE && r.name == "Abs" && r.text.as_deref().is_some_and(|t| t.starts_with("value.")) && lt.ns == READABLE && lt.name == "LoadTransparent" && matches!(lt.text.as_deref(),Some("true"|"false")) => {
                     let svg = self.svg.ok_or_else(|| format!("строка {}: нет Template/value.svg", r.line))?;
                     // в записи — base64 строками по 64 знака через CRLF
                     let b = super::payload::base64_atom(svg);
@@ -448,6 +449,7 @@ impl Fix<'_> {
                 }
                 _ => return Err(format!("строка {}: картинка не загружается", e.line)),
             }
+            if opaque {e.attrs.push(Attr{ns:String::new(),local:"t".into(),val:Val::Raw("false".into())});}
         }
         // цвет — элемент стиля конфигурации: в записи `0:<uuid>`
         let is_color = e.attrs.iter().any(|a| a.ns == XSI && a.local == "type" && matches!(&a.val, Val::Q(q) if q.ns == V8UI && q.local == "Color"));

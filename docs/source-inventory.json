@@ -768,6 +768,68 @@
       "sha256": "fd33a9736fff69ac292c306842ddd3138a8cc90a6b31438f0199f4a8366c24b5",
       "source_path": "formats/compat-8.3.16.txt",
       "source_sha256": "fd33a9736fff69ac292c306842ddd3138a8cc90a6b31438f0199f4a8366c24b5"
+    },
+    {
+      "path": "crates/cf-unwrapper/src/xml/extension.rs",
+      "sha256": "92398ef6fe8145918acb2c92d578c0916eab83f7477cbd98d0fb4a3054431739",
+      "origin": "Authored in cf-unwrapper for CFE XML export, 2026-11-03; no extracted source or embedded payload."
+    },
+    {
+      "path": "crates/cf-unwrapper/src/xml/imp/extension.rs",
+      "origin": "Authored in cf-unwrapper, 2026-11-03; layouts verified with a purpose-built synthetic CFE.",
+      "sha256": "4a49e0b0ea30f5ed6cfaeeaa108d0eed60cdb8ba262d434d06b3b9ba372724c3"
+    },
+    {
+      "path": "crates/cf-unwrapper/src/xml/imp/extension_defaults.rs",
+      "origin": "Authored in cf-unwrapper, 2026-11-03; layouts verified with a purpose-built synthetic CFE.",
+      "sha256": "1c08e1ac8f860693282157b2a6c14b938f204b78b06698af73ca800b9e827cad"
+    },
+    {
+      "path": "crates/cf-unwrapper/src/xml/indexes.rs",
+      "origin": "Authored in cf-unwrapper, 2026-11-04; additional-index layout verified against platform XML; no production payload.",
+      "sha256": "747d1b04f95eaabece68a698e1d8ade1429466d9f297b5d3884a33ba6dc956db"
+    }
+  ],
+  "test_fixtures": [
+    {
+      "path": "crates/cf-unwrapper/tests/fixtures/Configuration.xml",
+      "sha256": "cab81633e295f9c9a20deaf59a106493e7ac88c5d745c694149450a414de17eb",
+      "origin": "Existing synthetic configuration regression fixture, present before CFE support."
+    },
+    {
+      "path": "crates/cf-unwrapper/tests/fixtures/extension/Catalogs/BorrowedCatalog.xml",
+      "sha256": "cdc5d40b95838c148bc149d75e241ebf5377be0a4587b86fe3b3e33167ded4ac",
+      "origin": "Purpose-built SyntheticExtension; canonical XML verified by platform 8.5.1.1529; no production payload."
+    },
+    {
+      "path": "crates/cf-unwrapper/tests/fixtures/extension/CommonModules/BorrowedModule.xml",
+      "sha256": "2f51173fdd0eb43a93bd0751a6b7d5233fac63a002c25b236de5936a52bc2ed9",
+      "origin": "Purpose-built SyntheticExtension; canonical XML verified by platform 8.5.1.1529; no production payload."
+    },
+    {
+      "path": "crates/cf-unwrapper/tests/fixtures/extension/Configuration.xml",
+      "sha256": "5a6347ce49abf5b1883dcfae02f4b479351c36a2cceab79060b726f737f75399",
+      "origin": "Purpose-built SyntheticExtension; canonical XML verified by platform 8.5.1.1529; no production payload."
+    },
+    {
+      "path": "crates/cf-unwrapper/tests/fixtures/extension/Documents/BorrowedDocument.xml",
+      "sha256": "d46bfe7d1eaaf5a7341d12cfa651e166c43f153726edea7c05295ef34805e617",
+      "origin": "Purpose-built SyntheticExtension; canonical XML verified by platform 8.5.1.1529; no production payload."
+    },
+    {
+      "path": "crates/cf-unwrapper/tests/fixtures/extension/InformationRegisters/BorrowedRegister.xml",
+      "sha256": "677568c0db31f8922e1b6c3e614863fee8f90c56a32d0198cd23482fa0d535cf",
+      "origin": "Purpose-built SyntheticExtension; canonical XML verified by platform 8.5.1.1529; no production payload."
+    },
+    {
+      "path": "crates/cf-unwrapper/tests/fixtures/extension/Languages/Language.xml",
+      "sha256": "7a2403de9d08bb1a52a52eb24fe5227d9a365f9e51c677ab31157bff4d25b5cd",
+      "origin": "Purpose-built SyntheticExtension; canonical XML verified by platform 8.5.1.1529; no production payload."
+    },
+    {
+      "path": "crates/cf-unwrapper/tests/fixtures/extension/Subsystems/BorrowedSubsystem.xml",
+      "sha256": "26962607d2c372894487a758f433ca93a22a1fe2e58c44451296c8c487e525b6",
+      "origin": "Purpose-built SyntheticExtension; canonical XML verified by platform 8.5.1.1529; no production payload."
     }
   ]
 }

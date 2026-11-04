@@ -82,7 +82,9 @@ const IR_DIMENSION: &[(&str, P)] = &[
     ("TypeReductionMode", P::Tok(&[0, 8], &[("0", "TransformValues"), ("1", "DeleteData"), ("2", "Deny")])),
 ];
 
-const IR_RESOURCE: &[(&str, P)] = &[("Indexing", P::Tok(&[0, 2], INDEXING)), ("FullTextSearch", P::Tok(&[0, 3], USE)), ("DataHistory", P::TokOr(&[0, 4], USE, "Use"))];
+const IR_RESOURCE: &[(&str, P)] = &[("Indexing", P::Tok(&[0, 2], INDEXING)), ("FullTextSearch", P::Tok(&[0, 3], USE)), ("DataHistory", P::TokOr(&[0, 4], USE, "Use")),("BinaryDataStorageLocationUse",P::Custom(|w,_,n| {
+    if n.at(&[0,5]).and_then(Node::atom).is_some_and(|v|v!="0") {token(w,"BinaryDataStorageLocationUse",n,&[0,5],&[("0","Use"),("1","DontUse")]);}
+}))];
 
 const ACCUMULATION_REGISTER: &[(&str, P)] = &[
     ("UseStandardCommands", P::Bool(&[1, 16])),

@@ -73,6 +73,7 @@ impl Exporter<'_> {
         let n = brace::parse(&t)?;
         let names = self.names.get_or_init(|| Names::new(self.cfg));
         let (file, data) = match role {
+            "AdditionalIndexes" => ("AdditionalIndexes.xml",Some(super::indexes::export(&n,self.index)?)),
             "Schedule" => ("Schedule.xml", Some(schedule(&n)?)),
             "Content" => ("Content.xml", Some(content(&n, names)?)),
             "CommandInterface" => ("CommandInterface.xml", command_interface(self.cfg, &n, names)?),

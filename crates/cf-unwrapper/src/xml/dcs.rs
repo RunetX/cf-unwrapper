@@ -574,6 +574,7 @@ impl Fix<'_> {
 
     /// Картинка выгружается в «читаемом» виде: `<Ref>CommonPicture.Имя</Ref>` или `<Abs>value.svg</Abs>`.
     fn picture(&self, e: &mut El) {
+        let transparent=match e.attr("","t") {None=>"true".to_string(),Some(Val::Raw(v)) if matches!(v.as_str(),"true"|"false")=>v.clone(),_=>format!("{}неизвестная прозрачность картинки",super::UNK)};
         let src = match (e.attr("", "ref"), &e.text) {
             (None, None) => None,
             (Some(Val::Raw(raw)), _) => {
@@ -618,7 +619,7 @@ impl Fix<'_> {
             let mut a = El::new(READABLE, "", tag);
             a.text = Some(v);
             let mut t = El::new(READABLE, "", "LoadTransparent");
-            t.text = Some("true".into());
+            t.text = Some(transparent);
             n.kids = vec![a, t];
         }
         *e = n;

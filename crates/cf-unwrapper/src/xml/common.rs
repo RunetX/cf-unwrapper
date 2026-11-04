@@ -99,11 +99,16 @@ pub const ANY_TYPES: &[(&str, &str, &str)] = &[
     ("3e63355c-1378-4953-be9b-1deb5fb6bec5", "v8:TypeSet", "TaskObject"),
     ("3ab47eda-6a5c-4590-9b08-0e633aa2f376", "v8:Type", "AccountingRegisterManager"),
     ("061d872a-5787-460e-95ac-ed74ea3a3e84", "v8:TypeSet", "DocumentObject"),
+    ("3caa9852-d921-4ba6-8259-e1f1fc0954ad", "v8:Type", "ExchangePlanManager"),
     ("3eab4ff4-f2d1-4c96-831c-04711b093999", "v8:Type", "ChartOfCalculationTypesManager"),
     ("5e268c17-8035-458f-8041-daf9b15d05c9", "v8:Type", "TaskManager"),
+    ("6ba5b296-4aa6-4099-9087-821f2d1252d1", "v8:Type", "DataProcessorManager"),
     ("7612de75-8b10-466a-b235-68572c605d92", "v8:Type", "ChartOfCharacteristicTypesManager"),
     ("82faabf3-7f9b-4b2e-b499-98876415f270", "v8:Type", "CatalogManager"),
+    ("83f90ce5-0770-47df-bc7c-5156720f86df", "v8:Type", "FilterCriterionManager"),
     ("92e7f73f-bd66-4d9e-bc43-bae2acfadfd5", "v8:Type", "DocumentJournalManager"),
+    ("af88b718-20c1-40e7-8a15-d0da56108fe6", "v8:Type", "EnumManager"),
+    ("b63dd3d0-6d1b-4c66-bdb2-b065e282a777", "v8:Type", "ReportManager"),
 ];
 
 /// Типы платформы со своим пространством имен: (GUID, пространство, префикс — `None`: `d<уровень>p1`, имя).
@@ -547,7 +552,7 @@ pub fn uuid5(ns: &str, name: &[u8]) -> String {
     format!("{}-{}-{}-{}-{}", &h[..8], &h[8..12], &h[12..16], &h[16..20], &h[20..])
 }
 
-fn sha1(data: &[u8]) -> [u8; 20] {
+pub(crate) fn sha1(data: &[u8]) -> [u8; 20] {
     let mut h: [u32; 5] = [0x67452301, 0xefcdab89, 0x98badcfe, 0x10325476, 0xc3d2e1f0];
     let mut m = data.to_vec();
     m.push(0x80);

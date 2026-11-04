@@ -103,8 +103,8 @@ fn element_template(class: &str, kind: &str) -> Option<&'static str> {
         ("AccountingRegister", "Dimension") => "{{6,$attr,$E:Balance,$E:AccountingFlag,$E:Indexing,$E:DenyIncompleteValues,$E:FullTextSearch},0}",
         ("AccountingRegister", "Resource") => "{{2,$attr,$E:Balance,$E:AccountingFlag,$E:ExtDimensionAccountingFlag,$E:FullTextSearch},0}",
         ("AccountingRegister", "Attribute") => "{{3,$attr,$E:Indexing,$E:FullTextSearch,0,{1,00000000-0000-0000-0000-000000000000}},0}",
-        ("InformationRegister", "Attribute") => "{{5,$attr,$E:Indexing,$E:FullTextSearch,$E:DataHistory,0,{1,00000000-0000-0000-0000-000000000000}},0}",
-        ("InformationRegister", "Resource") => "{{8,$attr,$E:Indexing,$E:FullTextSearch,$E:DataHistory,0,{1,00000000-0000-0000-0000-000000000000}},0}",
+        ("InformationRegister", "Attribute") => "{{5,$attr,$E:Indexing,$E:FullTextSearch,$E:DataHistory,$storage_use,{1,00000000-0000-0000-0000-000000000000}},0}",
+        ("InformationRegister", "Resource") => "{{8,$attr,$E:Indexing,$E:FullTextSearch,$E:DataHistory,$storage_use,{1,00000000-0000-0000-0000-000000000000}},0}",
         ("InformationRegister", "Dimension") => "{{10,$attr,$E:Master,$E:DenyIncompleteValues,$E:Indexing,$E:MainFilter,$E:FullTextSearch,$E:DataHistory,$E:TypeReductionMode},0}",
         ("AccumulationRegister", "Resource") => "{{5,$attr,$E:FullTextSearch},0}",
         ("CalculationRegister", "Resource") => "{{4,$attr,$E:FullTextSearch},0}",
@@ -127,6 +127,7 @@ fn elements(x: &Index, o: &Obj, guid: &str, kind: &str) -> Result<Node, String> 
         let p = Props { el: e.req("Properties")?, x, id };
         let n = super::tpl::fill(tpl, &mut |q| match q {
             "attr" => Ok(vec![super::attr::block(&p, o.full)?]),
+            "storage_use"=>Ok(vec![match p.el.child("BinaryDataStorageLocationUse") {Some(e)=>token(e,&[("0","Use"),("1","DontUse")])?,None=>a("0")}]),
             _ => {
                 let tag = q.strip_prefix("E:").ok_or(format!("шаблон: место ${q}"))?;
                 let (_, pp) = et.iter().find(|(t, _)| *t == tag).ok_or(format!("нет свойства {tag} у {kind}"))?;

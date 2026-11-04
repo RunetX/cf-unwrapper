@@ -12,13 +12,30 @@ use crate::brace::Node;
 use std::collections::HashMap;
 
 /// Флаги [`downgrade`] по id элемента (`rec` — сама форма): свойства 8.5, которые прежняя версия не выражает.
-pub const UNSET_GROUP: u8 = 1;
-pub const UNSET_ROW_SELECTION: u8 = 2;
-pub const SHOW_COMMAND_BAR: u8 = 4;
-pub const UNSET_AUTO_EDIT: u8 = 8;
-pub const UNSET_WINDOW_MODE: u8 = 16;
-pub const UNSET_SCROLL: u8 = 32;
-pub const UNSET_REPRESENTATION: u8 = 64;
+pub const UNSET_GROUP: u32 = 1;
+pub const UNSET_ROW_SELECTION: u32 = 2;
+pub const SHOW_COMMAND_BAR: u32 = 4;
+pub const UNSET_AUTO_EDIT: u32 = 8;
+pub const UNSET_WINDOW_MODE: u32 = 16;
+pub const UNSET_SCROLL: u32 = 32;
+pub const UNSET_REPRESENTATION: u32 = 64;
+pub const FIELD_V59: u32 = 128;
+pub const MARK_REQUIRED_FALSE: u32 = 256;
+pub const MARK_REQUIRED_TRUE: u32 = 512;
+pub const HLINES_FALSE: u32 = 1024;
+pub const HLINES_TRUE: u32 = 2048;
+pub const VLINES_FALSE: u32 = 4096;
+pub const VLINES_TRUE: u32 = 8192;
+pub const ALTERNATION_FALSE: u32 = 16384;
+pub const ALTERNATION_TRUE: u32 = 32768;
+pub const USE_COPY_FALSE: u32 = 1<<16;
+pub const USE_COPY_TRUE: u32 = 1<<17;
+pub const AUTO_WIDTH_SHIFT: u32 = 18;
+pub const INITIAL_ROW_SHIFT: u32 = 20;
+pub const GROUP_TITLE_TRUE: u32 = 1<<22;
+pub const GROUP_TITLE_FALSE: u32 = 1<<23;
+pub const GROUP_TITLE_V59: u32 = 1<<24;
+pub const HIERARCHY_NONE: u32 = 1<<25;
 
 /// Дописанные поля со значением «свойство 8.5»: (как в [`TAILS`]; значение; флаг). Формы конструктора 8.5 (режимы
 /// «Такси» и «Версия 8.5» одинаково) и опыт ibcmd import → save с заданными в XML свойствами: Group 0–2 и
@@ -28,7 +45,7 @@ pub const UNSET_REPRESENTATION: u8 = 64;
 /// WindowOpeningMode «не задано» — хвост 4 = 3 (формы списка, произвольная и документа конструктора 8.5 28.10.2026:
 /// платформа не пишет WindowOpeningMode, прежнее место — 0); у страницы Group «не задано» — хвост 0 = 4,
 /// ScrollOnCompress — хвост 1 = 2 (форма элемента справочника с двумя табличными частями, как у загрузки `imp/form/items.rs` `page`).
-const FLAGS: &[(&str, &str, &str, u8, usize, &str, u8)] = &[
+const FLAGS: &[(&str, &str, &str, u8, usize, &str, u32)] = &[
     ("rec", "4", "59", b'A', 7, "4", UNSET_GROUP),
     ("rec", "4", "59", b'A', 4, "3", UNSET_WINDOW_MODE),
     ("cd5394d0", "22", "22", b'L', 0, "4", UNSET_GROUP),
@@ -38,6 +55,7 @@ const FLAGS: &[(&str, &str, &str, u8, usize, &str, u8)] = &[
     ("cd5394d0", "22", "38", b'A', 7, "4", UNSET_GROUP),
     ("143c00f7", "", "73", b'L', 17, "2", UNSET_ROW_SELECTION),
     ("143c00f7", "", "73", b'L', 11, "1", SHOW_COMMAND_BAR),
+    ("143c00f7", "", "73", b'L', 2, "1", HIERARCHY_NONE),
     ("77ffcc29", "", "48", b'L', 2, "2", UNSET_AUTO_EDIT),
 ];
 
@@ -77,17 +95,17 @@ const RULES: &[(&str, &str, &str, u8, &str, usize, usize)] = &[
 const TAILS: &[(&str, &str, &str, u8, usize, &[&str])] = &[
     ("-", "", "6", b'L', 0, &["\"\"", "\"S\""]),
     ("-", "22", "1", b'A', 0, &["0"]),
-    ("143c00f7", "", "73", b'L', 0, &["0", "2"]),
-    ("143c00f7", "", "73", b'L', 1, &["0", "2"]),
+    ("143c00f7", "", "73", b'L', 0, &["0", "1", "2"]),
+    ("143c00f7", "", "73", b'L', 1, &["0", "1", "2"]),
     ("143c00f7", "", "73", b'L', 2, &["0"]),
     ("143c00f7", "", "73", b'L', 3, &["0"]),
     ("143c00f7", "", "73", b'L', 4, &["\"\""]),
     ("143c00f7", "", "73", b'L', 5, &["\"\""]),
-    ("143c00f7", "", "73", b'L', 6, &["0"]),
+    ("143c00f7", "", "73", b'L', 6, &["0", "1", "2"]),
     ("143c00f7", "", "73", b'L', 7, &["1"]),
     ("143c00f7", "", "73", b'L', 8, &["{22,{ID},1,0,0,10,\"S\",{1,0},{1,0},0,1,0,0,0,2,2,{3,4,{0}},{7,3,0,1,100},{0,0,0},1,{0,1,0,1},0,1,0,0,0,3,3,0}", "{22,{ID},1,0,0,10,\"S\",{T,0},{T,0},0,1,0,0,0,2,2,{3,4,{0}},{7,3,0,1,100},{0,0,0},1,{0,1,0,1},0,1,0,0,0,3,3,0}", "{22,{0},1,0,0,10,\"S\",{1,0},{1,0},0,1,0,0,0,2,2,{3,4,{0}},{7,3,0,1,100},{0,0,0},1,{0,1,0,1},0,1,0,0,0,3,3,0}", "{22,{0},1,0,0,10,\"S\",{T,0},{T,0},0,1,0,0,0,2,2,{3,4,{0}},{7,3,0,1,100},{0,0,0},1,{0,1,0,1},0,1,0,0,0,3,3,0}"]),
     ("143c00f7", "", "73", b'L', 9, &["0"]),
-    ("143c00f7", "", "73", b'L', 10, &["0", "2"]),
+    ("143c00f7", "", "73", b'L', 10, &["0", "1", "2"]),
     ("143c00f7", "", "73", b'L', 11, &["0"]),
     ("143c00f7", "", "73", b'L', 12, &["0", "1", "2"]),
     ("143c00f7", "", "73", b'L', 13, &["1"]),
@@ -119,14 +137,14 @@ const TAILS: &[(&str, &str, &str, u8, usize, &[&str])] = &[
     ("77ffcc29", "", "48", b'L', 9, &["0"]),
     ("77ffcc29", "", "48", b'L', 10, &["1"]),
     ("77ffcc29", "", "48", b'L', 11, &["2"]),
-    ("77ffcc29", "", "48", b'L', 12, &["0"]),
+    ("77ffcc29", "", "48", b'L', 12, &["0", "1", "2", "3"]),
     ("77ffcc29", "", "48", b'L', 13, &["0", "1"]),
     ("77ffcc29", "", "48", b'L', 14, &["0", "1"]),
     ("77ffcc29", "#", "1", b'A', 0, &["{4,0,{0},\"\",-1,-1,1,0,\"\"}"]),
     ("77ffcc29", "48", "11", b'L', 0, &["0"]),
     ("77ffcc29", "48", "11", b'L', 1, &["1"]),
     ("77ffcc29", "48", "11", b'L', 2, &["2"]),
-    ("77ffcc29", "48", "12", b'A', 0, &["2"]),
+    ("77ffcc29", "48", "12", b'A', 0, &["0", "1", "2"]),
     ("77ffcc29", "48", "13", b'A', 0, &["0"]),
     ("77ffcc29", "48", "13", b'A', 1, &["2"]),
     ("77ffcc29", "48", "15", b'A', 0, &["0"]),
@@ -148,7 +166,7 @@ const TAILS: &[(&str, &str, &str, u8, usize, &[&str])] = &[
     ("cd5394d0", "22", "22", b'L', 0, &["0", "1", "2", "3"]),
     ("cd5394d0", "22", "22", b'L', 1, &["0", "1"]),
     ("cd5394d0", "22", "22", b'L', 2, &["0"]),
-    ("cd5394d0", "22", "22", b'L', 3, &["0", "2"]),
+    ("cd5394d0", "22", "22", b'L', 3, &["0", "1", "2"]),
     ("cd5394d0", "22", "38", b'A', 0, &["0"]),
     ("cd5394d0", "22", "38", b'A', 1, &["0"]),
     ("cd5394d0", "22", "38", b'A', 2, &["0"]),
@@ -161,11 +179,11 @@ const TAILS: &[(&str, &str, &str, u8, usize, &[&str])] = &[
     ("cd5394d0", "22", "38", b'A', 9, &["2"]),
     ("cd5394d0", "22", "38", b'A', 10, &["0"]),
     ("cd5394d0", "22", "38", b'A', 11, &["0"]),
-    ("cd5394d0", "22", "38", b'A', 12, &["0", "2"]),
+    ("cd5394d0", "22", "38", b'A', 12, &["0", "1", "2"]),
     ("cd5394d0", "22", "5", b'A', 0, &["1"]),
     ("cd5394d0", "22", "5", b'A', 1, &["2"]),
     ("cd5394d0", "22", "5", b'A', 2, &["2"]),
-    ("cd5394d0", "22", "5", b'A', 3, &["0", "2"]),
+    ("cd5394d0", "22", "5", b'A', 3, &["0", "1", "2"]),
     ("cd5394d0", "22", "8", b'L', 0, &["1"]),
     ("rec", "0", "11", b'L', 0, &["0"]),
     ("rec", "0", "11", b'L', 1, &["0"]),
@@ -189,7 +207,7 @@ pub fn is_v59(root: &Node) -> bool {
 }
 
 /// Ошибка — значение, которое прежняя версия не выражает (выгрузка формы отказывает, а не пишет неверное).
-pub fn downgrade(root: &mut Node) -> Result<HashMap<String, u8>, String> {
+pub fn downgrade(root: &mut Node) -> Result<HashMap<String, u32>, String> {
     let mut tails = Vec::new();
     let mut flags = HashMap::new();
     // Узлы `{22,{-k,ID},…}` (k ≥ 2) в конце корня — свои панели редактора форм 8.5 (форма, правленная Конфигуратором,
@@ -294,7 +312,7 @@ pub fn styles(n: &mut Node) -> Result<(), String> {
 }
 
 /// `elem` — id элемента, в котором узел (ключ флагов вложенных узлов).
-fn walk(n: &mut Node, etype: &str, parent: &str, elem: &str, tails: &mut Vec<String>, flags: &mut HashMap<String, u8>) -> Result<(), String> {
+fn walk(n: &mut Node, etype: &str, parent: &str, elem: &str, tails: &mut Vec<String>, flags: &mut HashMap<String, u32>) -> Result<(), String> {
     let own = head(n);
     let shape = match n.get(1) {
         Some(Node::Atom(_)) => b'A',
@@ -311,7 +329,8 @@ fn walk(n: &mut Node, etype: &str, parent: &str, elem: &str, tails: &mut Vec<Str
     let mut prev: Option<String> = None;
     for c in v.iter_mut() {
         if is_element(c) {
-            let t = prev.as_deref().filter(|p| p.len() == 36).map_or("-", |p| &p[..8]).to_string();
+            // Embedded chart tables have an element id but no preceding class GUID.
+            let t = prev.as_deref().filter(|p| p.len() == 36).map_or_else(|| if head(c)=="73" {"143c00f7"} else {"-"}, |p| &p[..8]).to_string();
             walk(c, &t, "", "", tails, flags)?;
         } else if matches!(c, Node::List(_)) {
             walk(c, etype, &own, if owner.is_empty() { elem } else { &owner }, tails, flags)?;
@@ -333,20 +352,57 @@ fn walk(n: &mut Node, etype: &str, parent: &str, elem: &str, tails: &mut Vec<Str
     if etype == "143c00f7" && own == "73" {
         // Таблица: VerticalLinesBWA (33, за флагом видимости по ролям в 4 — 34) 8.5 держит в дописанном поле 1
         // как 0/2, а в 33 пишет 0 (сверка 4 466 форм каркаса с БП).
-        let at = 33 + usize::from(v[4].atom() == Some("1"));
+        let extra = usize::from(v[4].atom() == Some("1"));
         let tail = v.len() - cut;
-        v[at] = match v[tail + 1].atom() {
-            Some("0") => Node::Atom("0".into()),
-            Some("2") => Node::Atom("1".into()),
-            _ => return Err(format!("версия формы 59: таблица, VerticalLinesBWA {:?}", v[tail + 1])),
-        };
+        let activation:u32=v[tail+6].atom().and_then(|v|v.parse().ok()).filter(|v|*v<=2).ok_or("неизвестное InitialRowActivation")?;
+        *flags.entry(owner.clone()).or_default()|=activation<<INITIAL_ROW_SHIFT;
+        // The v59 writer stores all three properties in the tail (see
+        // imp/form/table.rs). 0=false, 1=true, 2=auto; preserve the distinction
+        // between explicit true and auto, absent in the old layout.
+        for (old,new,no,yes) in [(32,0,HLINES_FALSE,HLINES_TRUE),(33,1,VLINES_FALSE,VLINES_TRUE),(36,10,ALTERNATION_FALSE,ALTERNATION_TRUE)] {
+            let flag=match v[tail+new].atom() {Some("0")=>no,Some("1")=>yes,Some("2")=>0,_=>return Err(format!("неизвестное булево поле таблицы {new}"))};
+            *flags.entry(owner.clone()).or_default()|=flag;
+            v[old+extra]=match v[tail+new].atom() {
+                Some("0")=>Node::Atom("0".into()),
+                Some("1"|"2")=>Node::Atom("1".into()),
+                _=>return Err(format!("версия формы 59: таблица, булево поле хвоста {new}: {:?}",v[tail+new]))
+            };
+        }
     }
     let tail = v.len() - cut;
+    let input_picture=(etype=="77ffcc29" && parent=="48" && own=="38" && shape==b'L').then(||v[tail+1].clone());
+    let radio_extra=if etype=="77ffcc29" && parent=="48" && own=="11" && shape==b'L' {
+        let valid=|n:&Node,max:u32|n.atom().and_then(|a|a.parse::<u32>().ok()).is_some_and(|a|a<=max);
+        if !valid(&v[tail],2) || !valid(&v[tail+1],3) || !valid(&v[tail+2],2) {return Err("неизвестные свойства переключателя".into());}
+        let extra=vec![v[tail].clone(),v[tail+1].clone()];
+        v[11]=v[tail+2].clone();
+        Some(extra)
+    } else {None};
+    if etype == "77ffcc29" && parent.is_empty() && own == "48" {
+        let mark=match v[tail].atom() {
+            Some("0")=>MARK_REQUIRED_FALSE,Some("1")=>MARK_REQUIRED_TRUE,Some("2")=>0,
+            _=>return Err("версия формы 59: неизвестное MarkRequiredComplete".into())
+        };
+        *flags.entry(owner.clone()).or_default()|=FIELD_V59|mark;
+        let width:u32=v[tail+12].atom().and_then(|v|v.parse().ok()).filter(|v|*v<=3).ok_or("неизвестное AutoWidthInTable")?;
+        *flags.entry(owner.clone()).or_default()|=width<<AUTO_WIDTH_SHIFT;
+    }
+    if etype=="77ffcc29" && parent=="48" && own=="12" && shape==b'A' {
+        let value=match v[tail].atom() {Some("0")=>USE_COPY_FALSE,Some("1")=>USE_COPY_TRUE,Some("2")=>0,_=>return Err("неизвестное UseCopy".into())};
+        *flags.entry(elem.to_string()).or_default()|=value;
+    }
+    if etype=="cd5394d0" && parent=="22" && (own=="38" && shape==b'A' || own=="22" && shape==b'L' || own=="5" && shape==b'A') {
+        let at=if own=="38" {12} else {3};
+        let mark=match v[tail+at].atom() {Some("0")=>GROUP_TITLE_FALSE,Some("1")=>GROUP_TITLE_TRUE,Some("2")=>0,_=>return Err("неизвестное ShowTitle группы".into())};
+        *flags.entry(elem.to_string()).or_default()|=GROUP_TITLE_V59|mark;
+    }
     // Картинка-декорация: PictureColor 8.5 пишет в дописанное поле 1 свойств вида (поле 14 элемента у нее — TextColor);
     // оставляем его полем 13 свойств — `form.rs` читает его оттуда.
     let picture_color = (etype == "3d3cb80c" && parent == "12" && own == "6").then(|| v[tail + 1].clone());
     if rule {
         for (i, x) in v[tail..].iter().enumerate() {
+            if input_picture.is_some() && i==1 {continue;}
+            if radio_extra.is_some() {continue;}
             if i == 1 && picture_color.is_some() {
                 continue;
             }
@@ -366,6 +422,8 @@ fn walk(n: &mut Node, etype: &str, parent: &str, elem: &str, tails: &mut Vec<Str
         }
     }
     v.truncate(v.len() - cut);
+    if let Some(picture)=input_picture {v.push(picture);}
+    if let Some(extra)=radio_extra {v.extend(extra);}
     v.extend(picture_color);
     v[0] = Node::Atom(new.to_string());
     Ok(())

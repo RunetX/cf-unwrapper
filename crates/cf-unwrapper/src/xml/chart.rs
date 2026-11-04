@@ -1380,7 +1380,9 @@ pub fn gantt(o: &[Node], p: &str) -> R<Vec<String>> {
     // Поле 28 — showPointsText: 1 Show, 0 Auto (8.5, АнализЖурналаРегистрации — выгрузка платформы).
     // Поле 31 (версия 19) — textPlacement (GanttChartTextPlacementType, chart.dll FUN_1800de410).
     // Поле 30 — булево: чтение FUN_18021ce90 его отбрасывает, запись FUN_18021c750 пишет true — в XML его нет (ЗУП: 0).
-    let tail = if g.len() == 33 { "{{0,0,0},_,0,_,_,0}" } else { "{{0,0,0},_,0,_}" };
+    let tail = if g.len() == 33 { "{{0,0,0},_,~DATA~,_,_,0}" } else { "{{0,0,0},_,~DATA~,_}" };
+    let data_code=g.get(29).and_then(Node::atom).filter(|v|matches!(*v,"0"|"1"|"2")).unwrap_or("");
+    let tail=tail.replace("~DATA~",data_code);
     let dropped = match g.get(30).and_then(Node::atom) {
         Some(b @ ("0" | "1")) => b,
         _ => "",
@@ -1404,7 +1406,7 @@ pub fn gantt(o: &[Node], p: &str) -> R<Vec<String>> {
         ("Auto", "Auto")
     };
     x.leaf("showPointsText", show_points);
-    x.leaf("showData", "Auto");
+    x.leaf("showData",match data_code {"1"=>"Show","2"=>"DontShow",_=>"Auto"});
     x.leaf("textPlacement", text);
     x.leaf("intervalTextRepresentation", "Auto");
     Ok(x.lines)

@@ -350,7 +350,8 @@ fn child_objects(w: &mut W, x: &Index, class: &str, it: &Item, root: &Node) {
             name_synonym_comment(w, h);
         }
         if c.kind == "EnumValue" {
-            w.text("Color", "auto");
+            let color=super::classes_tools::element(root,&c.header.id).and_then(|e|e.at(&[0,2]));
+            w.text("Color",&match color {Some(c) if c.get(1).and_then(Node::atom)!=Some("4")=>super::ui::color(c),_=>"auto".into()});
         }
         w.end();
         w.end();

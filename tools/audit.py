@@ -18,6 +18,12 @@ def audit():
         p = ROOT / entry["path"]
         if p.suffix != ".rs":
             assert hashlib.sha256(p.read_bytes()).hexdigest() == entry["sha256"], f"review embedded asset change: {p.name}"
+    fixtures = inventory.get("test_fixtures", [])
+    fixture_paths = {e["path"] for e in fixtures}
+    actual_fixtures = {p.relative_to(ROOT).as_posix() for p in (LIB / "tests/fixtures").rglob("*") if p.is_file()}
+    assert actual_fixtures == fixture_paths, f"fixture allowlist changed: {actual_fixtures ^ fixture_paths}"
+    for entry in fixtures:
+        assert hashlib.sha256((ROOT / entry["path"]).read_bytes()).hexdigest() == entry["sha256"], f"review synthetic fixture change: {entry['path']}"
     for p in ROOT.glob("crates/**/*.rs"):
         text = p.read_text(encoding="utf-8-sig")
         assert not re.search(r"\b[A-Z]:[\\/]", text), f"machine path: {p}"

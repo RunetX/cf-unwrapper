@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<MetaDataObject xmlns="http://v8.1c.ru/8.3/MDClasses" xmlns:app="http://v8.1c.ru/8.2/managed-application/core" xmlns:cfg="http://v8.1c.ru/8.1/data/enterprise/current-config" xmlns:cmi="http://v8.1c.ru/8.2/managed-application/cmi" xmlns:ent="http://v8.1c.ru/8.1/data/enterprise" xmlns:lf="http://v8.1c.ru/8.2/managed-application/logform" xmlns:pal="http://v8.1c.ru/8.1/data/ui/colors/palette" xmlns:style="http://v8.1c.ru/8.1/data/ui/style" xmlns:sys="http://v8.1c.ru/8.1/data/ui/fonts/system" xmlns:v8="http://v8.1c.ru/8.1/data/core" xmlns:v8ui="http://v8.1c.ru/8.1/data/ui" xmlns:web="http://v8.1c.ru/8.1/data/ui/colors/web" xmlns:win="http://v8.1c.ru/8.1/data/ui/colors/windows" xmlns:xen="http://v8.1c.ru/8.3/xcf/enums" xmlns:xpr="http://v8.1c.ru/8.3/xcf/predef" xmlns:xr="http://v8.1c.ru/8.3/xcf/readable" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="2.21">
+	<InformationRegister uuid="0f8bda75-b2d7-5200-b53c-5652d5e88e9d">
+		<InternalInfo>
+			<xr:GeneratedType name="InformationRegisterRecord.BorrowedRegister" category="Record">
+				<xr:TypeId>1749dde5-a58d-56df-b8bd-b96188875ad6</xr:TypeId>
+				<xr:ValueId>ed607d4e-9ae9-5ec9-9eb8-f1e4d8e04361</xr:ValueId>
+			</xr:GeneratedType>
+			<xr:GeneratedType name="InformationRegisterManager.BorrowedRegister" category="Manager">
+				<xr:TypeId>e644204e-a162-5e0f-85ec-e7e2613d4fe9</xr:TypeId>
+				<xr:ValueId>8c0686f2-9781-505c-9266-952a958021e7</xr:ValueId>
+			</xr:GeneratedType>
+			<xr:GeneratedType name="InformationRegisterSelection.BorrowedRegister" category="Selection">
+				<xr:TypeId>30cbfe36-a090-50b4-9c2b-3826c957f452</xr:TypeId>
+				<xr:ValueId>ddb0b5ee-36d4-5d9f-bb1d-e682f10f6773</xr:ValueId>
+			</xr:GeneratedType>
+			<xr:GeneratedType name="InformationRegisterList.BorrowedRegister" category="List">
+				<xr:TypeId>b6d948c9-7658-5ddc-b0c8-059f52b94666</xr:TypeId>
+				<xr:ValueId>db09667e-17bc-54db-a378-43e1966268f0</xr:ValueId>
+			</xr:GeneratedType>
+			<xr:GeneratedType name="InformationRegisterRecordSet.BorrowedRegister" category="RecordSet">
+				<xr:TypeId>65af683d-3375-5367-bbd5-add94e564297</xr:TypeId>
+				<xr:ValueId>dc8c4048-3991-5f97-9019-8cb393284764</xr:ValueId>
+			</xr:GeneratedType>
+			<xr:GeneratedType name="InformationRegisterRecordKey.BorrowedRegister" category="RecordKey">
+				<xr:TypeId>205c9a45-37fd-5bff-afb4-9d7da24837fa</xr:TypeId>
+				<xr:ValueId>1fd14f99-400c-57aa-9309-187ab9035645</xr:ValueId>
+			</xr:GeneratedType>
+			<xr:GeneratedType name="InformationRegisterRecordManager.BorrowedRegister" category="RecordManager">
+				<xr:TypeId>09a603a4-be0a-54ce-9c7a-e88d6d89a6f1</xr:TypeId>
+				<xr:ValueId>9b430ca0-658e-5f2c-9f4e-a7dd720f6d7e</xr:ValueId>
+			</xr:GeneratedType>
+		</InternalInfo>
+		<Properties>
+			<ObjectBelonging>Adopted</ObjectBelonging>
+			<Name>BorrowedRegister</Name>
+			<Comment/>
+			<InformationRegisterPeriodicity>Nonperiodical</InformationRegisterPeriodicity>
+			<WriteMode>Independent</WriteMode>
+		</Properties>
+		<ChildObjects/>
+	</InformationRegister>
+</MetaDataObject>

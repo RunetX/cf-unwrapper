@@ -116,6 +116,7 @@ pub fn record(doc: &El, x: &Index) -> Result<Vec<u8>, String> {
     let ii = c.req("InternalInfo")?;
     let mut oids = Vec::new();
     for co in ii.elems() {
+        if co.name == "xr:PropertyState" && super::extension::adopted(c) {continue;}
         if co.name != "xr:ContainedObject" {
             return Err(format!("строка {}: <{}> в InternalInfo", co.line, co.name));
         }
@@ -128,8 +129,9 @@ pub fn record(doc: &El, x: &Index) -> Result<Vec<u8>, String> {
     let props = c.req("Properties")?;
     let p = Props { el: props, x, id: &oids[0].1 };
     props.text_of("Name")?;
-    let pn = p.fill(PROPS, &mut |q| custom(q, &p))?;
-    for t in EMPTY_ONLY {
+    let extension=super::extension::adopted(c);
+    let pn = if extension {super::extension::configuration_props(c,&oids[0].1,x)?} else {p.fill(PROPS, &mut |q| custom(q, &p))?};
+    for t in EMPTY_ONLY.iter().filter(|_|!extension) {
         let e = p.get(t)?;
         if e.elems().next().is_some() || !e.text()?.is_empty() {
             return Err(format!("<{t}>: непустое значение не загружается — позиция в записи не установлена"));

@@ -10,6 +10,9 @@ use std::collections::{HashMap, HashSet};
 #[path = "form_settings.rs"]
 mod settings;
 
+pub const KEYBOARD_RETURN: &[&str] = &["Auto","Return","Go","Join","Next","Search","Send","Done","Continue"];
+pub const AUTOFILL_HINT: &[&str] = &["DontUse","FullName","GivenName","FamilyName","MiddleName","NamePrefix","NameSuffix","Street","City","Region","Country","PostalCode","UserName","Password","NewPassword","OneTimeCode","Email","PhoneNumber","CreditCardNumber"];
+
 /// Имена объектов конфигурации по GUID: для путей к данным, типов, картинок, команд.
 #[derive(Default)]
 pub struct Names {
@@ -1471,7 +1474,7 @@ struct Form<'a> {
     /// Имена элементов с id `{0}` (запись 8.5 из загрузки XML): ссылка на элемент с id 0 — на такой элемент.
     zero_items: Vec<String>,
     /// Свойства 8.5 по id элемента (`rec` — форма): `form_v59::downgrade`.
-    v59_flags: HashMap<String, u8>,
+    v59_flags: HashMap<String, u32>,
 }
 
 /// Хвост корня формы после навигатора: позиция → (свойство, значения по коду, код по умолчанию).
@@ -1494,7 +1497,7 @@ fn enum_name(t: &[&'static str], code: i64) -> Option<&'static str> {
 
 impl Form<'_> {
     /// Флаг свойства 8.5 элемента (`rec` — формы).
-    fn flag(&self, id: &str, f: u8) -> bool {
+    fn flag(&self, id: &str, f: u32) -> bool {
         self.v59_flags.get(id).is_some_and(|x| x & f != 0)
     }
 
@@ -2756,6 +2759,7 @@ fn type_inner(w: &mut W, names: &Names, p: &Node) {
                     (None, Some(x), _) if x.starts_with("DefinedType.") || x.starts_with("Characteristic.") => sets.leaf("v8:TypeSet", &format!("cfg:{x}")),
                     (None, Some(x), _) => w.leaf("v8:Type", &format!("cfg:{x}")),
                     (None, None, Some(x)) => sets.leaf("v8:TypeSet", x),
+                    _ if is_guid(g) && t.list().len()==2 => w.leaf("v8:TypeId",g),
                     _ => w.leaf("v8:Type", &unk("тип", t)),
                 }
             }
@@ -3014,6 +3018,11 @@ pub(super) fn std_style_font(code: i64) -> Option<&'static str> {
         -31 => "NormalTextFont",
         -32 => "LargeTextFont",
         -33 => "ExtraLargeTextFont",
+        -48 => "TitleLevel1",
+        -59 => "TitleLevel2",
+        -50 => "TitleLevel3",
+        -51 => "TitleLevel4",
+        -52 => "TitleLevel5",
         _ => return None,
     })
 }
@@ -3296,7 +3305,7 @@ fn picture(w: &mut W, tag: &str, n: &Node, names: &Names) {
                 format!("StdPicture.{s}")
             } else if let Some(f) = names.full.get(id) {
                 f.clone()
-            } else if NOT_STD_PICTURES.contains(&id) {
+            } else if NOT_STD_PICTURES.contains(&id) || is_guid(id) {
                 format!("0:{id}")
             } else {
                 format!("\u{1}картинка:{id}")
@@ -3459,7 +3468,10 @@ impl Form<'_> {
             }
             2 => {
                 p.en("Group", &["Horizontal", "", "InCell"], s(1), 1);
-                p.flag_if("ShowTitle", s(2) == 0, "false");
+                if self.flag(it.id(),super::form_v59::GROUP_TITLE_V59) {
+                    if self.flag(it.id(),super::form_v59::GROUP_TITLE_FALSE) {p.leaf("ShowTitle","false");}
+                    if self.flag(it.id(),super::form_v59::GROUP_TITLE_TRUE) {p.leaf("ShowTitle","true");}
+                } else {p.flag_if("ShowTitle", s(2) == 0, "false");}
                 p.flag_if("ShowInHeader", s(3) == 1, "true");
                 p.en("HeaderHorizontalAlign", H_ALIGN, s(4), 3);
                 p.picture("HeaderPicture", sub.get(5), nm);
@@ -3487,7 +3499,10 @@ impl Form<'_> {
                     p.leaf("TitleDataPath", &d);
                 }
                 p.local("Format", sub.get(5).unwrap_or(&EMPTY));
-                p.flag_if("ShowTitle", s(6) == 0, "false");
+                if self.flag(it.id(),super::form_v59::GROUP_TITLE_V59) {
+                    if self.flag(it.id(),super::form_v59::GROUP_TITLE_FALSE) {p.leaf("ShowTitle","false");}
+                    if self.flag(it.id(),super::form_v59::GROUP_TITLE_TRUE) {p.leaf("ShowTitle","true");}
+                } else {p.flag_if("ShowTitle", s(6) == 0, "false");}
                 p.color("BackColor", sub.get(9), nm);
                 p.en("HorizontalSpacing", SPACING, s(10), 0);
                 p.en("VerticalSpacing", SPACING, s(11), 0);
@@ -3518,7 +3533,10 @@ impl Form<'_> {
                 if !self.flag(it.id(), super::form_v59::UNSET_REPRESENTATION) {
                     p.leaf("Representation", ["None", "StrongSeparation", "WeakSeparation", "NormalSeparation"].get(s(3) as usize).copied().unwrap_or("\u{1}"));
                 }
-                p.flag_if("ShowTitle", s(4) == 0, "false");
+                if self.flag(it.id(),super::form_v59::GROUP_TITLE_V59) {
+                    if self.flag(it.id(),super::form_v59::GROUP_TITLE_FALSE) {p.leaf("ShowTitle","false");}
+                    if self.flag(it.id(),super::form_v59::GROUP_TITLE_TRUE) {p.leaf("ShowTitle","true");}
+                } else {p.flag_if("ShowTitle", s(4) == 0, "false");}
                 p.flag_if("ControlRepresentation", s(11) == 1, "Button");
                 p.flag_if("Collapsed", s(12) == 1, "true");
                 p.flag_if("ShowLeftMargin", s(13) == 0, "false");
@@ -4639,6 +4657,8 @@ impl Form<'_> {
             // У версий до 30 — в 15 и в своей нумерации (2 — авто).
             p.en("LocationInCommandBar", &["InAdditionalSubmenu", "InCommandBarAndInAdditionalSubmenu"], it.num(15), 2);
         }
+        // Platform XML import toggling only CommandUniqueness changes button slot 50.
+        p.flag_if("CommandUniqueness",it.n(k+17).is_some() && it.num(k+17)==0,"false");
         if matches!(it.a(0), "30" | "31") {
             p.importance(it.num(48));
         }
@@ -5166,12 +5186,22 @@ impl Form<'_> {
         p.num_def("FooterHeight", it.a(29), "1");
         p.en("HorizontalScrollBar", &["DontUse", "UseAlways"], it.num(30), 2);
         p.en("VerticalScrollBar", &["DontUse", "UseAlways"], it.num(31), 2);
-        p.flag_if("HorizontalLinesBWA", it.num(32) == 0, "false");
-        p.flag_if("VerticalLinesBWA", it.num(33) == 0, "false");
-        p.flag_if("UseAlternationRowColorBWA", it.num(36) == 0, "false");
+        if self.v59_flags.contains_key(it.id()) {
+            use super::form_v59::*;
+            for (tag,no,yes) in [("HorizontalLinesBWA",HLINES_FALSE,HLINES_TRUE),("VerticalLinesBWA",VLINES_FALSE,VLINES_TRUE),("UseAlternationRowColorBWA",ALTERNATION_FALSE,ALTERNATION_TRUE)] {
+                if self.flag(it.id(),no) {p.leaf(tag,"false");}
+                if self.flag(it.id(),yes) {p.leaf(tag,"true");}
+            }
+        } else {
+            p.flag_if("HorizontalLinesBWA", it.num(32) == 0, "false");
+            p.flag_if("VerticalLinesBWA", it.num(33) == 0, "false");
+            p.flag_if("UseAlternationRowColorBWA", it.num(36) == 0, "false");
+        }
         p.flag_if("AutoInsertNewRow", it.num(37) == 1, "true");
         p.en("InitialListView", &["Beginning", "End"], it.num(38), 2);
         p.en("InitialTreeView", &["", "ExpandTopLevel", "ExpandAllLevels"], it.num(39), 0);
+        p.en("InitialRowActivation", &["Auto","Activate","NoActivate"], ((self.v59_flags.get(it.id()).copied().unwrap_or_default()>>super::form_v59::INITIAL_ROW_SHIFT)&3) as i64,0);
+        p.flag_if("HierarchyPanelLocation",self.flag(it.id(),super::form_v59::HIERARCHY_NONE),"None");
         p.en("Output", &["", "Enable", "Disable"], it.num(40), 0);
         p.flag_if("HorizontalStretch", it.num(41) == 0, "false");
         p.flag_if("VerticalStretch", it.num(42) == 0, "false");
@@ -5318,9 +5348,8 @@ impl Form<'_> {
             let coll = if direct { coll } else { "" };
             // 07c3d8a2 (ProcessLabelButton) загрузка XML исключает вместе с SearchEverywhere или GetURL, в XML ее нет
             // (imp/form/table.rs; 8.5: ИнтерфейсДокументовЭДО.АрхивЭлектронныхДокументов — выгрузка платформы)
-            let label_pair = c.list().iter().skip(1).take(num_at(c, 0).max(0) as usize).filter_map(Node::atom).any(|g| matches!(std_item_command(g), Some("SearchEverywhere" | "GetURL")));
             let seen = |g: &str| {
-                dl && label_pair && g == "07c3d8a2-e24d-4d52-b430-f5f7a131429c"
+                g == "07c3d8a2-e24d-4d52-b430-f5f7a131429c"
                     || coll == "v8:ValueTree" && DL_SETTINGS_COMMANDS.contains(&g)
                     || coll == "v8:ValueTable" && TREE_COMMANDS.contains(&g)
                     || coll == "DynamicList" && dl_lacks(g, main_class, self.names.older.is_some())
@@ -5760,6 +5789,9 @@ impl Form<'_> {
         let tag = field_tag(kind).ok_or_else(|| format!("поле вида {kind}"))?;
         let nm = self.names;
         let mut p = P::new(depth + 1);
+        if self.flag(it.id(), super::form_v59::MARK_REQUIRED_FALSE) {p.leaf("MarkRequiredComplete","false");}
+        if self.flag(it.id(), super::form_v59::MARK_REQUIRED_TRUE) {p.leaf("MarkRequiredComplete","true");}
+        p.en("AutoWidthInTable", &["Auto","ByData","None","ByDataAndTitle"], ((self.v59_flags.get(it.id()).copied().unwrap_or_default()>>super::form_v59::AUTO_WIDTH_SHIFT)&3) as i64,0);
         p.en("TitleLocation", TITLE_LOCATION, it.num(7), 1);
         p.num_nz("TitleHeight", it.a(8));
         p.local("Title", it.n(9).unwrap_or(&EMPTY));
@@ -5896,7 +5928,7 @@ impl Form<'_> {
                 p.local("EditFormat", sn(30).unwrap_or(&EMPTY));
                 match s(31) {
                     0 | 1 => {
-                        p.leaf("MarkRequiredComplete", bool_text(s(31) == 1));
+                        if !self.flag(it.id(), super::form_v59::FIELD_V59) {p.leaf("MarkRequiredComplete", bool_text(s(31) == 1));}
                         p.leaf("AutoMarkIncomplete", bool_text(s(31) == 1));
                     }
                     _ => {}
@@ -5936,10 +5968,15 @@ impl Form<'_> {
                 p.en("AutoCorrectionOnTextInput", &["", "", "DontUse"], s(57), 0);
                 p.en("SpellCheckingOnTextInput", &["", "", "DontUse"], s(58), 0);
                 p.en("SpecialTextInputMode", &["", "", "", "", "Email", "PhoneNumber", "Digits"], s(60), 0);
+                // SpecialTextInputMode supplies the effective autofill hint. Slot 61
+                // is OnScreenKeyboardReturnKeyText, a different enumeration.
+                p.en("AutofillHint",AUTOFILL_HINT,if s(63)==0 {match s(60) {4=>16,5=>17,_=>0}} else {s(63)},0);
+                p.en("OnScreenKeyboardReturnKeyText",KEYBOARD_RETURN,s(61),0);
                 if let Some(m) = sn(62).filter(|m| brace::write(m).unwrap_or_default() != "{0}") {
                     self.multiple_values(&mut p, m, it.n(11));
                 }
                 p.flag_if("ExtendedEditMultipleValues", s(65) == 1, "true");
+                p.picture("Picture",sn(66),nm);
             }
             1 => {
                 p.num_nz("Width", sa(1));
@@ -5953,6 +5990,8 @@ impl Form<'_> {
                 p.color("BackColor", sn(9), nm);
                 p.font("Font", sn(10), nm);
                 p.tri("PasswordMode", s(11));
+                if self.flag(it.id(),super::form_v59::USE_COPY_FALSE) {p.leaf("UseCopy","false");}
+                if self.flag(it.id(),super::form_v59::USE_COPY_TRUE) {p.leaf("UseCopy","true");}
                 evs.extend(sn(12));
                 p.color("BorderColor", sn(13), nm);
                 p.border(sn(14), 0);
@@ -5981,6 +6020,8 @@ impl Form<'_> {
                 p.num_nz("ItemTitleHeight", sa(9));
                 p.num_nz("ItemWidth", sa(10));
                 p.tri("EqualColumnsWidth", s(11));
+                if sub.get(12).is_some() {p.en("TumblerRepresentation",&["Auto","Text","Picture"],s(12),0);}
+                if sub.get(13).is_some() {p.en("Orientation",&["Vertical","Horizontal","HorizontalIfPossible","AlwaysHorizontal"],s(13),1);}
             }
             4 => {
                 p.num_nz("Width", sa(1));
@@ -5989,6 +6030,7 @@ impl Form<'_> {
                 p.flag_if("VerticalStretch", s(4) == 0, "false");
                 p.picture("ValuesPicture", sn(5), nm);
                 p.en("PictureSize", PICTURE_SIZE, s(6), 0);
+                p.num_def("ImageScale",sa(23),"100");
                 p.flag_if("Zoomable", s(7) == 1, "true");
                 p.flag_if("Hyperlink", s(8) == 1, "true");
                 p.local("NonselectedPictureText", sn(9).unwrap_or(&EMPTY));

@@ -6,6 +6,45 @@ use cf_unwrapper::{
 use std::path::{Path, PathBuf};
 use std::sync::atomic::{AtomicUsize, Ordering};
 static NEXT: AtomicUsize = AtomicUsize::new(0);
+
+#[test]
+fn adopted_extension_roundtrip_and_single_part_container() {
+    let source = Path::new(env!("CARGO_MANIFEST_DIR")).join("tests/fixtures/extension");
+    let imported = xml::imp::import(&source, None).unwrap();
+    assert!(imported.refused.is_empty(), "{:?}", imported.refused);
+    let bytes = xml::imp::cf(&source, &imported).unwrap();
+    let parts = container::read_all(&bytes).unwrap();
+    assert_eq!(parts.len(), 1);
+    assert_eq!(parts[0].width, Width::W32);
+    assert!(parts[0].entries.iter().any(|e| e.name == "configinfo"));
+    assert!(!parts[0]
+        .entries
+        .iter()
+        .any(|e| e.name == "root" || e.name == "version"));
+    let cfg = Config::open(&bytes).unwrap();
+    assert!(xml::extension::is_extension(&cfg));
+    let temp = Temp::new();
+    let report = xml::export(&cfg, &temp.0).unwrap();
+    assert!(report.errors.is_empty(), "{:?}", report.errors);
+    assert!(report.skipped.is_empty(), "{:?}", report.skipped);
+    fn same(source: &Path, exported: &Path) {
+        for entry in std::fs::read_dir(source).unwrap() {
+            let path = entry.unwrap().path();
+            let other = exported.join(path.file_name().unwrap());
+            if path.is_dir() {
+                same(&path, &other);
+            } else {
+                assert_eq!(
+                    std::fs::read_to_string(&path).unwrap(),
+                    std::fs::read_to_string(&other).unwrap(),
+                    "{}",
+                    path.display()
+                );
+            }
+        }
+    }
+    same(&source, &temp.0);
+}
 struct Temp(PathBuf);
 impl Temp {
     fn new() -> Self {

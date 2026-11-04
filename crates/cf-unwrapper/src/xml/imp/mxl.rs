@@ -587,7 +587,7 @@ pub(super) fn font_node(x: &Index, e: &El, sys_in_scope: bool) -> R<Node> {
         ("StyleItem", Some(r)) if super::tpl::int(r).is_some_and(|c| !c.starts_with('-')) => ("2", Some(l(vec![a(r)]))),
         ("StyleItem", Some(r)) => {
             let n = r.strip_prefix("style:").ok_or_else(|| bad(r))?;
-            let std = [("TextFont", "-20"), ("SmallTextFont", "-30"), ("NormalTextFont", "-31"), ("LargeTextFont", "-32"), ("ExtraLargeTextFont", "-33")];
+            let std = [("TextFont", "-20"), ("SmallTextFont", "-30"), ("NormalTextFont", "-31"), ("LargeTextFont", "-32"), ("ExtraLargeTextFont", "-33"), ("TitleLevel1","-48"),("TitleLevel2","-59"),("TitleLevel3","-50"),("TitleLevel4","-51"),("TitleLevel5","-52"),("TextLevel1","-53"),("TextLevel2","-54"),("TextLevel3","-55"),("SubtitleLevel1","-56"),("SubtitleLevel2","-57")];
             match std.iter().find(|(x, _)| *x == n) {
                 Some((_, c)) => ("2", Some(l(vec![a(*c)]))),
                 None => ("2", Some(l(vec![a("0"), a(x.id(&format!("StyleItem.{n}")).ok_or_else(|| bad(r))?)]))),

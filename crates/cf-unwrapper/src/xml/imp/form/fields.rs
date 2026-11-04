@@ -9,6 +9,25 @@ pub(super) const FIELD: &str = "77ffcc29-7f2d-4223-b22f-19666e7250ba";
 /// Суффикс имени панели действий выделенных строк, которую платформа добавляет каждому полю.
 const ROWS_PANEL: &str = "ПанельДействийВыделенныхСтрок";
 
+#[cfg(test)]
+mod tests {
+    use super::*;
+    #[test]
+    fn autofill_hint_does_not_overwrite_keyboard_return_key() {
+        // Independent slots verified against platform-created records. Writing
+        // Email=16 into slot 61 makes the platform reject the entire CFE export.
+        let x=Index::default();
+        let read=|_:&str|->Result<Vec<u8>,String>{Err(String::new())};
+        let f=F {x:&x,attrs:Default::default(),main:None,cmds:Default::default(),items:Default::default(),referenced:Default::default(),read:&read,used:Default::default(),lists:Default::default(),list_req:Default::default()};
+        let e=crate::xml::imp::dom::parse("<InputField><SpecialTextInputMode>Email</SpecialTextInputMode><AutofillHint>Email</AutofillHint><OnScreenKeyboardReturnKeyText>Send</OnScreenKeyboardReturnKeyText></InputField>").unwrap();
+        let p=Props::new(&e).unwrap();
+        let (_,n)=f.input_sub(&e,&p).unwrap();
+        assert_eq!(n.get(61).and_then(Node::atom),Some("6"));
+        assert_eq!(n.get(63).and_then(Node::atom),Some("16"));
+        assert!(e.unread().is_none());
+    }
+}
+
 /// Граница числа `{"N",<x>}`; нет — `{"U"}`.
 fn bound(e: Option<&El>) -> R<Node> {
     let Some(e) = e else { return Ok(l(vec![s("U")])) };
@@ -56,16 +75,10 @@ impl F<'_> {
             (Some("EnterOnInput"), None) => em61 = 2,
             _ => return Err(err(e, "AutoEditMode не как у выгрузки")),
         }
-        // MarkRequiredComplete выгрузка пишет равным AutoMarkIncomplete
-        let ami = p.get("AutoMarkIncomplete").map(boolean).transpose()?;
-        if p.get("MarkRequiredComplete").map(boolean).transpose()? != ami {
-            return Err(err(e, "MarkRequiredComplete не равно AutoMarkIncomplete"));
-        }
-        let ami = a(match ami {
-            None => "2",
-            Some(true) => "1",
-            Some(false) => "0",
-        });
+        // The common field and the InputField subtype store independent
+        // properties: MarkRequiredComplete in the v48 tail, AutoMarkIncomplete
+        // in the input subtype. Their values need not be equal.
+        let ami = p.tri("MarkRequiredComplete")?;
         let hyper = p.b("CellHyperlink", "0")?;
         let data_path = match p.get("DataPath") {
             Some(d) => self.data_path(d)?,
@@ -196,7 +209,7 @@ impl F<'_> {
             a("0"),
             a("1"),
             a("2"),
-            a("0"),
+            p.tok("AutoWidthInTable",&[("Auto",0),("ByData",1),("None",2),("ByDataAndTitle",3)],0)?,
             p.tok("CellHyperlinkDisplayVariant", &[("Always", 1)], 0)?,
             p.tok("CellHyperlinkRepresentation", &[("Show", 1)], 0)?,
         ]);
@@ -412,9 +425,9 @@ impl F<'_> {
             p.num("ItemTitleHeight", "0")?,
             p.num("ItemWidth", "0")?,
             p.tri("EqualColumnsWidth")?,
-            a("0"),
-            a("1"),
-            a("2"),
+            p.tok("TumblerRepresentation",&[("Auto",0),("Text",1),("Picture",2)],0)?,
+            p.tok("Orientation",&[("Vertical",0),("Horizontal",1),("HorizontalIfPossible",2),("AlwaysHorizontal",3)],1)?,
+            p.tri("EqualColumnsWidth")?,
         ];
         Ok((|_| true, l(v)))
     }
@@ -448,7 +461,7 @@ impl F<'_> {
             p.b("AutoMaxHeight", "1")?,
             p.num("MaxHeight", "0")?,
             p.tok("FileDragMode", &[("AsFile", 0)], 1)?,
-            a("100"),
+            p.num("ImageScale", "100")?,
             a("0"),
             p.color(self.x, "PictureColor")?,
         ];
@@ -828,7 +841,7 @@ impl F<'_> {
             a("0"),
             p.b("AutoMaxHeight", "1")?,
             p.num("MaxHeight", "0")?,
-            a("2"),
+            p.tri("UseCopy")?,
         ];
         Ok((|n| n == "OnChange", l(v)))
     }
@@ -992,13 +1005,13 @@ impl F<'_> {
             p.tok("SpellCheckingOnTextInput", &[("DontUse", 2)], 0)?,
             a("0"),
             p.tok("SpecialTextInputMode", super::platform::SPECIAL_TEXT_INPUT_MODE, 0)?,
-            a("0"),
+            p.get("OnScreenKeyboardReturnKeyText").map(|e|token_of(e,crate::xml::form::KEYBOARD_RETURN)).unwrap_or_else(||Ok(a("0")))?,
             self.multiple_values(p)?,
-            a("0"),
+            p.get("AutofillHint").map(|e|token_of(e,crate::xml::form::AUTOFILL_HINT)).unwrap_or_else(||Ok(a("0")))?,
             self.choice_links(p.get("ChoiceParameterLinks"), "5007")?,
             p.b("ExtendedEditMultipleValues", "0")?,
             l(vec![a("1"), a("0")]),
-            picture_none(),
+            self.pic(e,p,"Picture")?,
             l(vec![a("1"), a("0")]),
             a("1"),
             a("0"),

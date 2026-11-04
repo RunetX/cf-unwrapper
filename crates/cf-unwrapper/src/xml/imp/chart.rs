@@ -997,10 +997,10 @@ pub fn gantt(x: &Index, obj: &El) -> R<Node> {
     v.extend([a("0"), c.color("linksColor")?, c.line("linksLine")?, l(vec![a("0"), a("0"), a("0")])]);
     v.push(c.en("showPointsText", &[(0, "Auto"), (1, "Show")])?);
     // showData и intervalTextRepresentation — Auto (0); между ними 1 и textPlacement (chart.dll FUN_1800de410)
-    c.fixed("showData", "Auto")?;
+    let show_data=c.en("showData",&[(0,"Auto"),(1,"Show"),(2,"DontShow")])?;
     let text = c.en("textPlacement", &[(0, "Auto"), (1, "Cut"), (2, "Wrap")])?;
     c.fixed("intervalTextRepresentation", "Auto")?;
-    v.extend([a("0"), a("1"), text, a("0")]);
+    v.extend([show_data, a("1"), text, a("0")]);
     if c.i != c.kids.len() {
         return Err(err(c.kids[c.i], "свойство диаграммы Ганта не загружается"));
     }

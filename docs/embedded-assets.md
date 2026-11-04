@@ -1,6 +1,14 @@
 # Embedded asset inventory
 
-Exact reviewed current bytes (SHA-256). No other binary, XML fixture or template is allowlisted.
+Exact reviewed current runtime asset bytes (SHA-256). No other binary or template asset is allowlisted.
+
+The seven XML test fixtures under `tests/fixtures/extension/` are a purpose-built
+synthetic extension, independently imported/exported by platform 8.5.1.1529.
+Their exact hashes and provenance are recorded in the `test_fixtures` section
+of [source-inventory.json](source-inventory.json) and checked by `tools/audit.py`.
+`src/xml/imp/extension_defaults.rs` contains structural defaults from that same
+synthetic experiment. It contains no production configuration identifiers or
+payloads. See [CFE support](cfe-support.md) for the verification and scope.
 
 | File | Bytes | SHA-256 |
 | --- | ---: | --- |

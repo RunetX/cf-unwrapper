@@ -16,6 +16,7 @@ pub mod down;
 pub mod edit;
 pub mod newform;
 pub mod ext;
+pub mod extension;
 pub mod flowchart;
 pub mod form;
 pub mod formedit;
@@ -25,6 +26,7 @@ pub mod form_v28;
 pub mod form_v59;
 pub mod graph;
 pub mod imp;
+mod indexes;
 pub mod mxl;
 pub mod payload;
 pub mod predefined;
@@ -302,7 +304,7 @@ impl Exporter<'_> {
                     Some(t) => rights::xml(self.cfg, &t, self.older().is_some_and(|v| v <= 17)).and_then(|x| self.write(&ext.join("Rights.xml"), &x)).map(|_| true),
                     None => Ok(false),
                 },
-                r @ ("Schedule" | "Content" | "CommandInterface" | "MainSectionCommandInterface" | "HomePageWorkArea" | "ClientApplicationInterface" | "Predefined" | "Flowchart") => self.ext_file(entry, r, &ext),
+                r @ ("Schedule" | "Content" | "CommandInterface" | "MainSectionCommandInterface" | "HomePageWorkArea" | "ClientApplicationInterface" | "Predefined" | "Flowchart" | "AdditionalIndexes") => self.ext_file(entry, r, &ext),
                 r if r.ends_with("Module") => self.module(entry, &ext.join(format!("{r}.bsl")), true),
                 _ => Ok(false),
             };
@@ -326,6 +328,17 @@ impl Exporter<'_> {
     }
 
     fn write(&mut self, path: &Path, data: &[u8]) -> Result<(), String> {
+        let rewritten;
+        let data = if extension::is_extension(self.cfg) && path.extension().is_some_and(|e| e == "xml") {
+            rewritten = match extension::export(self.cfg, data) {
+                Ok(b) => b,
+                Err(e) => {
+                    self.report.errors.push(format!("{}: {e}", path.display()));
+                    return Ok(());
+                }
+            };
+            &rewritten
+        } else { data };
         if let Some(line) = unknown_mark(path, data) {
             self.report.errors.push(format!("{}: незнакомое значение: {line}", path.display()));
             return Ok(());

@@ -54,6 +54,9 @@ fn template(class: &str, owner: Option<&str>) -> Option<String> {
 /// Запись описания; ошибка — файл отвергается.
 /// `full` — полное имя, если оно не `<Класс>.<Имя>` (вложенная подсистема).
 pub fn record(doc: &El, class: &str, owner: Option<&str>, full: Option<&str>, x: &Index) -> Result<Option<Vec<u8>>, String> {
+    if doc.peek_child(class).is_some_and(super::extension::adopted) {
+        return super::extension::record(doc,class,x).map(Some);
+    }
     let Some(tpl) = template(class, owner) else { return Ok(None) };
     check_root(doc)?;
     let obj = doc.req(class)?;
@@ -218,10 +221,8 @@ fn custom(q: &str, p: &Props, o: &Obj) -> Result<Vec<Node>, String> {
             for e in o.children("EnumValue") {
                 let id = e.req_attr("uuid")?;
                 let vp = Props { el: e.req("Properties")?, x: p.x, id };
-                if vp.text("Color")? != "auto" {
-                    return Err("EnumValue: цвет не auto не загружается".into());
-                }
-                v.push(l(vec![l(vec![a("1"), vp.header()?, l(vec![a("4"), a("4"), l(vec![a("0")]), a("4")])]), a("0")]));
+                let color=match vp.text("Color")?.as_str() {"auto"=>l(vec![a("4"),a("4"),l(vec![a("0")]),a("4")]),c=>super::ui::color(c).ok_or(format!("EnumValue: неизвестный цвет {c}"))?};
+                v.push(l(vec![l(vec![a("1"), vp.header()?, color]), a("0")]));
             }
             v[1] = a((v.len() - 2).to_string());
             return Ok(vec![l(v)]);
