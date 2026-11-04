@@ -793,8 +793,9 @@
   "test_fixtures": [
     {
       "path": "crates/cf-unwrapper/tests/fixtures/Configuration.xml",
-      "sha256": "cab81633e295f9c9a20deaf59a106493e7ac88c5d745c694149450a414de17eb",
-      "origin": "Existing synthetic configuration regression fixture, present before CFE support."
+      "sha256": "a9f0d921cddfebda658e6b84e4200b07ee0a73a8571dc8ef93d1a520e0280935",
+      "origin": "Existing synthetic configuration regression fixture, present before CFE support.",
+      "line_endings": "lf"
     },
     {
       "path": "crates/cf-unwrapper/tests/fixtures/extension/Catalogs/BorrowedCatalog.xml",
